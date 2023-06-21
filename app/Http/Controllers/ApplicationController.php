@@ -29,8 +29,7 @@ class ApplicationController extends Controller
      */
     public function create()
     {
-        $roles = Role::where('name','!=','SuperAdmin')->get();
-        return view('forms.addapplication', ['roles' => $roles]);
+        return view('forms.addapplication');
     }
 
     /**
@@ -45,25 +44,13 @@ class ApplicationController extends Controller
         if ($request->method() == 'POST') {
             $application = $request->validate([
                 'title' => 'required|string|max:255',
-                'url' => 'required|string|max:500|unique:applications',
+                'url' => 'required|string',
                 'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
 
-            $newApplication = Application::create([
-                'name' => $application['name'],
-                'email' => $application['email'],
-                'password' => Hash::make($application['password']),
-            ]);
+            Application::create($application);
 
-            
-
-          
-            $newApplication->profile()->save(new Profile(array(
-                'gender' => $application['gender'],
-                'birth' => date('Y-m-d', strtotime($application['birth'])),
-            )));
-
-            Session::flash('message', 'Application ' . $application['name'] . ' Successfully Created!!!');
+            Session::flash('message', 'Application ' . $application['title'] . ' Successfully Created!!!');
             Session::flash('alert-class', 'alert-success');
 
             return redirect('applications');
@@ -142,7 +129,7 @@ class ApplicationController extends Controller
     {
         if ($request->method() == 'POST') {
             $res = Application::where('id', $request->id)->delete();
-            echo $res;
+            return $res;
         }
     }
 }

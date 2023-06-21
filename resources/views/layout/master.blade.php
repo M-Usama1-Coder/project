@@ -41,6 +41,11 @@
                     <i class="fas fa-fw fa-users"></i>
                     <span>Users</span></a>
             </li>
+            <li class="nav-item @yield('users')">
+                <a class="nav-link" href="{{ url('applications') }}">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>Applications Management</span></a>
+            </li>
             <hr class="sidebar-divider">
            
                     </ul>

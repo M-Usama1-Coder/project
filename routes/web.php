@@ -33,3 +33,7 @@ Route::post('users/update/{id}', [Users::class, 'update'])->middleware('auth');
 
 
 Route::get('applications', [ApplicationController::class, 'index'])->middleware('auth');
+Route::post('applications/delete', [ApplicationController::class, 'delete'])->middleware('auth');
+Route::get('applications/create', [ApplicationController::class, 'create'])->middleware('auth');
+Route::post('applications/store', [ApplicationController::class, 'store'])->middleware('auth');
+Route::post('applications/update/{id}', [ApplicationController::class, 'update'])->middleware('auth');
