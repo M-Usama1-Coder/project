@@ -47,17 +47,17 @@
                                         <div class="form-group col-md-6">
                                             <label for="gender">Gender</label>
                                             <select name="gender" id="gender" class="form-control" required>
-                                                <option {{ $user->profile->gender == 'Male' ? 'selected' : '' }} value="Male">
+                                                <option {{ $user->gender == 'Male' ? 'selected' : '' }} value="Male">
                                                     Male
                                                 </option>
-                                                <option {{ $user->profile->gender == 'Female' ? 'selected' : '' }}
+                                                <option {{ $user->gender == 'Female' ? 'selected' : '' }}
                                                     value="Female">
                                                     Female</option>
                                             </select>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="birth">Date of Birth</label>
-                                            <input value="{{ date('Y-m-d', strtotime($user->profile->birth)) }}" type="date"
+                                            <input value="{{ date('Y-m-d', strtotime($user->birth)) }}" type="date"
                                                 name="birth" id="birth" class="form-control" placeholder="Date of Birth" required />
                                         </div>
                                     </div>
