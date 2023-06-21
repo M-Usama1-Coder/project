@@ -7,6 +7,7 @@ use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 
 class Users extends Controller
@@ -18,7 +19,9 @@ class Users extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = DB::table('users')
+            ->select('*')
+            ->get();
         return view('users', ['users' => $users]);
     }
 
@@ -55,7 +58,7 @@ class Users extends Controller
                 'password' => Hash::make($user['password']),
             ]);
 
-            
+
             Session::flash('message', 'User ' . $user['name'] . ' Successfully Created!!!');
             Session::flash('alert-class', 'alert-success');
 
@@ -84,7 +87,9 @@ class Users extends Controller
     public function edit($id)
     {
         //
-        $user = User::where('id', $id)->first();
+        $user = DB::table('users')
+        ->where('id', '=', $id)
+        ->first();
         return view('forms.updateuser', ['user' => $user]);
     }
 
@@ -114,28 +119,32 @@ class Users extends Controller
 
         if ($request->method() == 'POST') {
             $user = $request->validate([
-                'name' => 'required|string|max:255',
-                'gender' => 'required',
+                'first_name' => 'required|string|max:255',
+                'last_name' => 'required|string|max:255',
+                // 'gender' => 'required',
                 'designation' => 'string',
                 'password' => 'nullable|string|min:6',
             ]);
 
             //Setting arrays
-            
+
             $userDetails = array(
-                'name' => $user['name'],
+                'first_name' => $user['first_name'],
+                'last_name' => $user['last_name'],
             );
 
-    
+            // $profile = array();
+
+
 
             if (!empty($user['password'])) {
                 $userDetails['password'] = Hash::make($user['password']);
             }
             //end of setting
             $reqUser->update($userDetails);
-            $reqUser->profile->update($profile);
+            // $reqUser->profile->update($profile);
 
-            Session::flash('message', 'User ' . $user['name'] . ' Successfully Updated!!!');
+            Session::flash('message', 'User ' . $user['first_name'] . ' Successfully Updated!!!');
             Session::flash('alert-class', 'alert-success');
 
             return redirect('users');

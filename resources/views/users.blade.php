@@ -47,14 +47,12 @@
                             <tbody>
                                 @if (!empty($users))
                                     @foreach ($users as $key => $user)
-
                                         <tr id="row_{{ $user->id }}">
                                             <td>{{ $key + 1 }}</td>
-                                            
-                                            <td>{{ $user->first_name.' '.$user->last_name }}</td>
+
+                                            <td>{{ $user->first_name . ' ' . $user->last_name }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td>
-
                                             </td>
                                             <td>
 
