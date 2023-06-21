@@ -73,7 +73,6 @@
                                                             <button class="dropdown-item"
                                                                 onclick="delete_application({{ $application->id }})"><i
                                                                     data-feather="trash" width="20"></i> Delete</button>
-
                                                     </div>
                                                 </div>
 
