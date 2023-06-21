@@ -40,7 +40,6 @@
                                     <th>#</th>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Designation</th>
                                     <th>Options</th>
                                 </tr>
                             </thead>
@@ -52,8 +51,6 @@
 
                                             <td>{{ $user->first_name . ' ' . $user->last_name }}</td>
                                             <td>{{ $user->email }}</td>
-                                            <td>
-                                            </td>
                                             <td>
 
                                                 <div class="btn-group">

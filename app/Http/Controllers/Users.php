@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Group;
 use App\Models\User;
 use App\Models\Profile;
+use App\Models\UserGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
@@ -88,9 +90,11 @@ class Users extends Controller
     {
         //
         $user = DB::table('users')
-        ->where('id', '=', $id)
-        ->first();
-        return view('forms.updateuser', ['user' => $user]);
+            ->where('id', '=', $id)
+            ->first();
+        $groups = DB::table('groups')
+            ->get();
+        return view('forms.updateuser', ['user' => $user, 'groups' => $groups]);
     }
 
     public function change_password(Request $request, $id)
@@ -143,6 +147,12 @@ class Users extends Controller
             //end of setting
             $reqUser->update($userDetails);
             // $reqUser->profile->update($profile);
+
+            if ($request->group) {
+                $usergroup = UserGroup::where('user_id', $id)->first();
+                $usergroup->group_id = $request->group;
+                $usergroup->save();
+            }
 
             Session::flash('message', 'User ' . $user['first_name'] . ' Successfully Updated!!!');
             Session::flash('alert-class', 'alert-success');

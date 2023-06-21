@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserGroup extends Model
 {
     use HasFactory;
-    protected $table = 'my_flights';
+    protected $table = 'group_users';
 
     public function group()
     {

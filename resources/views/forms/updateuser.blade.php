@@ -31,7 +31,8 @@
                                 @endforeach
                             </div>
                         @endif
-                        <form id="updateuser" action="{{ url('users/update/'.$user->id) }}" method="POST" enctype="multipart/form-data">
+                        <form id="updateuser" action="{{ url('users/update/' . $user->id) }}" method="POST"
+                            enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="row" style="margin-top: 20px">
 
@@ -39,13 +40,13 @@
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <label for="name">First Name</label>
-                                            <input value="{{ $user->first_name }}" type="text" name="first_name" id="first_name"
-                                                class="form-control" placeholder="First Name" required />
+                                            <input value="{{ $user->first_name }}" type="text" name="first_name"
+                                                id="first_name" class="form-control" placeholder="First Name" required />
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="name">First Name</label>
-                                            <input value="{{ $user->last_name }}" type="text" name="last_name" id="last_name"
-                                                class="form-control" placeholder="Last Name" required />
+                                            <input value="{{ $user->last_name }}" type="text" name="last_name"
+                                                id="last_name" class="form-control" placeholder="Last Name" required />
                                         </div>
                                     </div>
                                     {{-- <div class="row" style="margin-top:10px">
@@ -69,10 +70,20 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-md-12">
+                                <div class="form-group col-md-6">
                                     <label for="password">Password</label>
                                     <input type="password" class="form-control" name="password" id="password"
                                         placeholder="Password">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="group">Group</label>
+                                    <select name="group" id="group" class="form-control" required>
+                                        @if (!empty($groups))
+                                            @foreach ($groups as $group)
+                                                <option value="{{$group->id}}">{{$group->name}}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
                                 </div>
 
                             </div>
