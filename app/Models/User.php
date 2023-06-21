@@ -20,12 +20,19 @@ class User extends Authenticatable
         return $profile;
     }
 
+    public function group()
+    {
+        $group = $this->hasOne(UserGroup::class,'user_id','id');
+        return $group;
+    }
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+        'id',
         'first_name',
         'last_name',
         'email',

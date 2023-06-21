@@ -31,19 +31,25 @@
                                 @endforeach
                             </div>
                         @endif
-                        <form id="updateuser" action="{{ url('users/update/'.$user->id) }}" method="POST" enctype="multipart/form-data">
+                        <form id="updateuser" action="{{ url('users/update/' . $user->id) }}" method="POST"
+                            enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="row" style="margin-top: 20px">
-                                
-                                <div class="col-md-9" style="padding-top: 30px">
+
+                                <div class="col-md-12" style="padding-top: 30px">
                                     <div class="row">
-                                        <div class="form-group col-md-12">
-                                            <label for="name">Full Name</label>
-                                            <input value="{{ $user->name }}" type="text" name="name" id="name"
-                                                class="form-control" placeholder="Full Name" required />
+                                        <div class="form-group col-md-6">
+                                            <label for="name">First Name</label>
+                                            <input value="{{ $user->first_name }}" type="text" name="first_name"
+                                                id="first_name" class="form-control" placeholder="First Name" required />
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="name">First Name</label>
+                                            <input value="{{ $user->last_name }}" type="text" name="last_name"
+                                                id="last_name" class="form-control" placeholder="Last Name" required />
                                         </div>
                                     </div>
-                                    <div class="row" style="margin-top:10px">
+                                    {{-- <div class="row" style="margin-top:10px">
                                         <div class="form-group col-md-6">
                                             <label for="gender">Gender</label>
                                             <select name="gender" id="gender" class="form-control" required>
@@ -60,7 +66,7 @@
                                             <input value="{{ date('Y-m-d', strtotime($user->birth)) }}" type="date"
                                                 name="birth" id="birth" class="form-control" placeholder="Date of Birth" required />
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <div class="row">
@@ -69,7 +75,17 @@
                                     <input type="password" class="form-control" name="password" id="password"
                                         placeholder="Password">
                                 </div>
-                               
+                                <div class="form-group col-md-6">
+                                    <label for="group">Group</label>
+                                    <select name="group" id="group" class="form-control" required>
+                                        @if (!empty($groups))
+                                            @foreach ($groups as $group)
+                                                <option value="{{$group->id}}">{{$group->name}}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
+                                </div>
+
                             </div>
                             <br>
                             <div class="row">

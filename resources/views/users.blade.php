@@ -40,22 +40,17 @@
                                     <th>#</th>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Designation</th>
                                     <th>Options</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @if (!empty($users))
                                     @foreach ($users as $key => $user)
-
                                         <tr id="row_{{ $user->id }}">
                                             <td>{{ $key + 1 }}</td>
-                                            
-                                            <td>{{ $user->first_name.' '.$user->last_name }}</td>
-                                            <td>{{ $user->email }}</td>
-                                            <td>
 
-                                            </td>
+                                            <td>{{ $user->first_name . ' ' . $user->last_name }}</td>
+                                            <td>{{ $user->email }}</td>
                                             <td>
 
                                                 <div class="btn-group">
@@ -73,7 +68,7 @@
                                                                 data-feather="edit" width="20"></i> Edit</a>
                                                         @if ($user->id != Auth::user()->id)
                                                             <button class="dropdown-item"
-                                                                onclick="delete_user({{ $user->id }})"><i
+                                                                onclick="delete_user('{{ $user->id }}')"><i
                                                                     data-feather="trash" width="20"></i> Delete</button>
                                                         @endif
 
