@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class LocationFactor extends Model
+class Application extends Model
 {
     use HasFactory;
-    protected $fillable = ['name','value'];
+
+    protected $fillable = ['title', 'url', 'photo'];
 }
