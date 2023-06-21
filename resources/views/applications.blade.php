@@ -38,8 +38,9 @@
                             <thead class="bg-primary text-light">
                                 <tr>
                                     <th>#</th>
-                                    <th>Title</th>
-                                    <th>Url</th>
+                                    <th>Name</th>
+                                    <th>sp_sso_url</th>
+                                    <th>sp_entity_id</th>
                                     <th>Options</th>
                                 </tr>
                             </thead>
@@ -50,8 +51,9 @@
                                         <tr id="row_{{ $application->id }}">
                                             <td>{{ $key + 1 }}</td>
                                             
-                                            <td>{{ $application->title }}</td>
-                                            <td>{{ $application->url }}</td>
+                                            <td>{{ $application->name }}</td>
+                                            <td>{{ $application->sp_sso_url }}</td>
+                                            <td>{{ $application->sp_entity_id }}</td>
                                             
                                             <td>
 
