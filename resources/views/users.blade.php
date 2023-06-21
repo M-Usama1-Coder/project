@@ -68,7 +68,7 @@
                                                                 data-feather="edit" width="20"></i> Edit</a>
                                                         @if ($user->id != Auth::user()->id)
                                                             <button class="dropdown-item"
-                                                                onclick="delete_user({{ $user->id }})"><i
+                                                                onclick="delete_user('{{ $user->id }}')"><i
                                                                     data-feather="trash" width="20"></i> Delete</button>
                                                         @endif
 

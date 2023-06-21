@@ -47,21 +47,25 @@ class Users extends Controller
     public function store(Request $request)
     {
         //
+
         if ($request->method() == 'POST') {
             $user = $request->validate([
-                'name' => 'required|string|max:255',
+                'first_name' => 'required|string|max:255',
+                'last_name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:191|unique:users',
                 'password' => 'required|string|min:6',
             ]);
 
             $newUser = User::create([
-                'name' => $user['name'],
+                'id' => md5($user['email']),
+                'first_name' => $user['first_name'],
+                'last_name' => $user['last_name'],
                 'email' => $user['email'],
                 'password' => Hash::make($user['password']),
             ]);
 
 
-            Session::flash('message', 'User ' . $user['name'] . ' Successfully Created!!!');
+            Session::flash('message', 'User ' . $user['first_name'] . ' Successfully Created!!!');
             Session::flash('alert-class', 'alert-success');
 
             return redirect('users');
@@ -170,7 +174,10 @@ class Users extends Controller
     public function delete(Request $request)
     {
         if ($request->method() == 'POST') {
-            $res = User::where('id', $request->id)->delete();
+            $res = DB::table('users')
+                ->where('id', '=', $request->id)
+                ->delete();
+
             echo $res;
         }
     }
