@@ -38,30 +38,17 @@
                                 <div class="col-md-9" style="padding-top: 30px">
                                     <div class="row">
                                         <div class="form-group col-md-6">
-                                            <label for="name">Full Name</label>
+                                            <label for="name">Name</label>
                                             <input type="text" name="name" id="name" class="form-control"
-                                                placeholder="Full Name" required />
+                                                placeholder="Name" required />
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="email">Email Address</label>
+                                            <label for="email">Email</label>
                                             <input type="text" name="email" id="email" class="form-control"
                                                 placeholder="Email" required />
                                         </div>
                                     </div>
-                                    <div class="row" style="margin-top:10px">
-                                        <div class="form-group col-md-6">
-                                            <label for="gender">Gender</label>
-                                            <select name="gender" id="gender" class="form-control" required>
-                                                <option value="Male">Male</option>
-                                                <option value="Female">Female</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="birth">Date of Birth</label>
-                                            <input type="date" name="birth" id="birth" class="form-control"
-                                                placeholder="Date of Birth" required />
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                             </div>
                             <div class="row">
@@ -70,17 +57,7 @@
                                     <input type="password" class="form-control" name="password" id="password"
                                         placeholder="Password">
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label for="role">Role</label>
-                                    <select name="role[]" id="role" class="form-control">
-                                        <option value="" disabled selected>Select your option</option>
-                                        @if (!empty($roles))
-                                            @foreach ($roles as $role)
-                                                <option value="{{ $role->name }}">{{ $role->name }}</option>
-                                            @endforeach
-                                        @endif
-                                    </select>
-                                </div>
+                              
                             </div>
                             <br>
                             <div class="row">
@@ -134,7 +111,6 @@
                 },
             },
             messages: {
-                photo: '<span class="text-danger ">Photo is Required</span>',
                 name: '<span class="text-danger ">Name is Required</span>',
                 email: {
                     required: '<span class="text-danger ">Email is Required</span>',
@@ -144,7 +120,6 @@
                     required: '<span class="text-danger ">Password is Required</span>',
                     rangelength: '<span class="text-danger ">Min 6 character Passaword</span>'
                 },
-                birth: '<span class="text-danger ">Date of Birth Required</span>',
             }
         });
     </script>

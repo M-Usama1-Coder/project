@@ -69,19 +69,7 @@
                                     <input type="password" class="form-control" name="password" id="password"
                                         placeholder="Password">
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label for="role">Role</label>
-                                    <select name="role[]" id="role"
-                                        class="form-control">
-                                        <option value="" disabled selected>Select your option</option>
-                                        @if (!empty($roles))
-                                            @foreach ($roles as $role)
-                                                <option @if ($user->hasRole($role->name)) selected @endif value="{{ $role->name }}">
-                                                    {{ $role->name }}</option>
-                                            @endforeach
-                                        @endif
-                                    </select>
-                                </div>
+                               
                             </div>
                             <br>
                             <div class="row">

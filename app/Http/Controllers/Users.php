@@ -29,8 +29,8 @@ class Users extends Controller
      */
     public function create()
     {
-        $roles = Role::where('name','!=','SuperAdmin')->get();
-        return view('forms.adduser', ['roles' => $roles]);
+        // $roles = Role::where('name','!=','SuperAdmin')->get();
+        return view('forms.adduser');
     }
 
     /**
@@ -46,10 +46,7 @@ class Users extends Controller
             $user = $request->validate([
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:191|unique:users',
-                'gender' => 'required',
                 'password' => 'required|string|min:6',
-                'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'birth' => 'required'
             ]);
 
             $newUser = User::create([
@@ -59,20 +56,6 @@ class Users extends Controller
             ]);
 
             
-
-            if (!empty($request->role)) {
-                foreach ($request->role as $role) {
-                    if (!empty(Role::where('name', $role))) {
-                        $newUser->assignRole($role);
-                    }
-                }
-            }
-
-            $newUser->profile()->save(new Profile(array(
-                'gender' => $user['gender'],
-                'birth' => date('Y-m-d', strtotime($user['birth'])),
-            )));
-
             Session::flash('message', 'User ' . $user['name'] . ' Successfully Created!!!');
             Session::flash('alert-class', 'alert-success');
 
@@ -102,8 +85,7 @@ class Users extends Controller
     {
         //
         $user = User::where('id', $id)->first();
-        $roles = Role::where('name','!=','SuperAdmin')->get();
-        return view('forms.updateuser', ['user' => $user, 'roles' => $roles]);
+        return view('forms.updateuser', ['user' => $user]);
     }
 
     public function change_password(Request $request, $id)
@@ -134,45 +116,17 @@ class Users extends Controller
             $user = $request->validate([
                 'name' => 'required|string|max:255',
                 'gender' => 'required',
+                'designation' => 'string',
                 'password' => 'nullable|string|min:6',
-                'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'birth' => 'required'
             ]);
 
             //Setting arrays
-            $profile = array(
-                'gender' => $user['gender'],
-                'birth' => date('Y-m-d', strtotime($user['birth'])),
-            );
+            
             $userDetails = array(
                 'name' => $user['name'],
             );
 
-            if (!empty($user['photo'])) {
-                $profile['photo'] = $user['photo'];
-            }
-            if ($request->file('photo')) {
-                $imagePath = $request->file('photo');
-                $filename = time() . uniqid() . '_img' . $imagePath->getClientOriginalName();
-                $request->file('photo')->storeAs('profile', $filename, 'public_uploads');
-                $profile['photo'] = $filename;
-            }
-
-            //Setting New Roles
-            if ($reqUser->roles) {
-                $currentRoles = $reqUser->roles;
-                foreach ($currentRoles as $changeRole) {
-                    $reqUser->removeRole($changeRole->name);
-                }
-            }
-
-            if (!empty($request->role)) {
-                foreach ($request->role as $role) {
-                    if (!empty(Role::where('name', $role))) {
-                        $reqUser->assignRole($role);
-                    }
-                }
-            }
+    
 
             if (!empty($user['password'])) {
                 $userDetails['password'] = Hash::make($user['password']);
