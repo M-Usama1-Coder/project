@@ -36,4 +36,5 @@ Route::get('applications', [ApplicationController::class, 'index'])->middleware(
 Route::post('applications/delete', [ApplicationController::class, 'delete'])->middleware('auth');
 Route::get('applications/create', [ApplicationController::class, 'create'])->middleware('auth');
 Route::post('applications/store', [ApplicationController::class, 'store'])->middleware('auth');
+Route::get('applications/edit/{id}', [ApplicationController::class, 'edit'])->middleware('auth');
 Route::post('applications/update/{id}', [ApplicationController::class, 'update'])->middleware('auth');

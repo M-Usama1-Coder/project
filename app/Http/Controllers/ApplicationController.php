@@ -87,32 +87,31 @@ class ApplicationController extends Controller
     {
         //
         $reqApplication = Application::where('id', $id)->first();
+        
 
         if ($request->method() == 'POST') {
             $application = $request->validate([
                 'title' => 'required|string|max:255',
-                'url' => 'required|text',
+                'url' => 'required|string',
                 'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
 
          
         
-            if (!empty($application['photo'])) {
-                $profile['photo'] = $application['photo'];
-            }
+            // if (!empty($application['photo'])) {
+            //     $profile['photo'] = $application['photo'];
+            // }
             if ($request->file('photo')) {
                 $imagePath = $request->file('photo');
                 $filename = time() . uniqid() . '_img' . $imagePath->getClientOriginalName();
                 $request->file('photo')->storeAs('profile', $filename, 'public_uploads');
-                $profile['photo'] = $filename;
+                $application['photo'] = $filename;
             }
 
-
             //end of setting
-            $reqApplication->update($applicationDetails);
-            $reqApplication->profile->update($profile);
+            $reqApplication->update($application);
 
-            Session::flash('message', 'Application ' . $application['name'] . ' Successfully Updated!!!');
+            Session::flash('message', 'Application ' . $application['title'] . ' Successfully Updated!!!');
             Session::flash('alert-class', 'alert-success');
 
             return redirect('applications');
