@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ApplicationUserResource;
+use App\Models\Application;
+use App\Models\ApplicationUser;
 use App\Models\Group;
 use App\Models\User;
 use App\Models\Profile;
@@ -35,7 +38,7 @@ class Users extends Controller
     public function create()
     {
         $groups = DB::table('groups')
-        ->get();
+            ->get();
         return view('forms.adduser', ['groups' => $groups]);
     }
 
@@ -69,10 +72,30 @@ class Users extends Controller
             Session::flash('message', 'User ' . $user['first_name'] . ' Successfully Created!!!');
             Session::flash('alert-class', 'alert-success');
 
-          
+
 
             return redirect('users');
         }
+    }
+
+    public function application(Request $request)
+    {
+        $application_id = $request->application_id;
+        $user_id = $request->user_id;
+
+        $ex = ApplicationUser::where('user_id', $user_id)->where('application_id', $application_id)->first();
+        if (!$ex) {
+            ApplicationUser::create(array('user_id' => $user_id, 'application_id' => $application_id));
+        }
+        return redirect('users/show/' . $user_id);
+    }
+
+    public function applicationDelete(Request $request)
+    {
+        $application_id = $request->application_id;
+        $user_id = $request->user_id;
+        $ex = ApplicationUser::where('user_id', $user_id)->where('application_id', $application_id)->delete();
+        return redirect('users/show/' . $user_id);
     }
 
     /**
@@ -83,12 +106,13 @@ class Users extends Controller
      */
     public function show($id)
     {
-        $user = User::where('id', $id)->first();
+        // $user = User::where('id', $id)->first();
         $user = DB::table('users')
-        ->where('id', '=', $id)
-        ->first();
+            ->where('id', '=', $id)
+            ->first();
         $applications = DB::table('applications')->get();
-        return view('show.userview', ['user' => $user, 'applications' => $applications]);
+        $userApps = ApplicationUser::where('user_id', $user->id)->get();
+        return view('show.userview', ['user' => $user, 'applications' => $applications, 'userApps' => $userApps]);
     }
 
     /**
@@ -161,10 +185,11 @@ class Users extends Controller
 
             if ($request->group) {
                 $usergroup = UserGroup::where('user_id', $id)->first();
-                if($usergroup){
-                $usergroup->group_id = $request->group;
-                $usergroup->save();}else{
-                    $grpArray=array('group_id'=>$request->group, 'user_id'=>$id,'client_id'=>1 );
+                if ($usergroup) {
+                    $usergroup->group_id = $request->group;
+                    $usergroup->save();
+                } else {
+                    $grpArray = array('group_id' => $request->group, 'user_id' => $id, 'client_id' => 1);
                     UserGroup::insert($grpArray);
                 }
             }

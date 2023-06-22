@@ -39,21 +39,48 @@
                                         <th>Email</th>
                                         <td>: {{ $user->email }}</td>
                                     </tr>
-                                    
-                                </table>
-                                <div class="form-group col-md-6">
-                                    <label for="group">Group</label>
 
-                                    <select name="group" id="group" class="form-control" required>
-                                        @if (!empty($applications))
-                                            @foreach ($applications as $application)
-                                       
-                                            
-                                                <option value="{{$application->id}}">{{$application->name}}</option>
-                                            @endforeach
-                                        @endif
-                                    </select>
+                                </table>
+                                <Hr>
+                                <div class="form-group col-md-8 d-flex">
+                                    <form action="{{ url('users/application') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name='user_id'
+                                            value="{{ $user->id }}">
+                                        <label for="application_id">Applications</label>
+                                        <select name="application_id" id="application_id" class="form-control" required>
+                                            @if (!empty($applications))
+                                                @foreach ($applications as $application)
+                                                    <option value="{{ $application->id }}">{{ $application->name }}
+                                                    </option>
+                                                @endforeach
+                                            @endif
+
+                                        </select>
+                                        <button type="submit" class="btn btn-primary">Add</button>
+                                    </form>
                                 </div>
+                                <table class="table">
+                                    <tr>
+                                        <th>Application</th>
+                                        <th>Remove Permission</th>
+                                    </tr>
+                                    @foreach ($userApps as $app)
+                                        <tr>
+                                            <td>{{ $app->application->name }}</td>
+                                            <td>
+                                                <form action="{{ url('users/application/delete') }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name='user_id' value="{{ $user->id }}">
+
+                                                    <input type="hidden" name='application_id'
+                                                        value="{{ $app->application->id }}">
+                                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </table>
                             </div>
                         </div>
                     </div>
