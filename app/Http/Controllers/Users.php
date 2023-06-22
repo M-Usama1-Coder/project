@@ -95,7 +95,7 @@ class Users extends Controller
         $application_id = $request->application_id;
         $user_id = $request->user_id;
         $ex = ApplicationUser::where('user_id', $user_id)->where('application_id', $application_id)->delete();
-        return redirect('users/show/' . $user_id);
+        return redirect()->back();
     }
 
     /**

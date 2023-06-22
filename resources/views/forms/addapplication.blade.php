@@ -5,11 +5,11 @@
 @section('content')
     <div class="container-fluid" id="container-wrapper">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Users</h1>
+            <h1 class="h3 mb-0 text-gray-800">Applications</h1>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{{ url('applications') }}">Users</a></li>
-                <li class="breadcrumb-item">Add User</li>
+                <li class="breadcrumb-item"><a href="{{ url('applications') }}">Applications</a></li>
+                <li class="breadcrumb-item">Add Application</li>
             </ol>
         </div>
 
@@ -21,7 +21,7 @@
                     <div class="row mt-3 mr-2">
                     </div>
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Add User</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Add Application</h6>
                     </div>
                     <div class="card-body">
                         @if ($errors->any())
@@ -58,8 +58,8 @@
                                                 placeholder="certificate_key" required ></textarea>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="Certificate">Certificate</label>
-                                            <input type="text" name="Certificate" id="Certificate" class="form-control"
+                                            <label for="certificate">Certificate</label>
+                                            <input type="text" name="certificate" id="certificate" class="form-control"
                                                 placeholder="Certificate" required />
                                         </div>
                                     </div>

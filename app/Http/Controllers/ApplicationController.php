@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Application;
 use App\Models\Profile;
+use App\Models\ApplicationUser;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -48,8 +50,10 @@ class ApplicationController extends Controller
                 'name' => 'required|string|max:255',
                 'sp_sso_url' => 'string',
                 'sp_entity_id' => 'required|string',
+                'certificate_key' => 'string|nullable',
+                'certificate' => 'string|nullable'
             ]);
-            $application['id']=md5($application['sp_entity_id']);
+            $application['id'] = md5($application['sp_entity_id']);
 
             Application::create($application);
 
@@ -69,7 +73,8 @@ class ApplicationController extends Controller
     public function show($id)
     {
         $application = Application::where('id', $id)->first();
-        return view('show.applicationview', ['application' => $application]);
+        $userApps = ApplicationUser::where('application_id', $application->id)->get();
+        return view('show.applicationview', ['application' => $application,'userApps'=>$userApps]);
     }
 
     /**
@@ -82,7 +87,7 @@ class ApplicationController extends Controller
     {
         //
         $application = DB::table('applications')
-                ->where('id', $id)->first();
+            ->where('id', $id)->first();
         return view('forms.updateapplication', ['application' => $application]);
     }
 
@@ -91,7 +96,7 @@ class ApplicationController extends Controller
     {
         //
         $reqApplication = Application::where('id', $id)->first();
-        
+
 
         if ($request->method() == 'POST') {
             $application = $request->validate([
@@ -100,15 +105,15 @@ class ApplicationController extends Controller
                 'sp_entity_id' => 'required|string',
             ]);
 
-         
-        
+
+
             // if (!empty($application['photo'])) {
             //     $profile['photo'] = $application['photo'];
             // }
 
             //end of setting
             $reqApplication->update($application);
-            
+
 
             Session::flash('message', 'Application ' . $application['name'] . ' Successfully Updated!!!');
             Session::flash('alert-class', 'alert-success');
@@ -132,6 +137,5 @@ class ApplicationController extends Controller
 
             return $res;
         }
-        
     }
 }

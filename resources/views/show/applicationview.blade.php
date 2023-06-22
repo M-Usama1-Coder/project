@@ -9,7 +9,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="{{ url('applications') }}">Applications</a></li>
-                <li class="breadcrumb-item">{{ $application->name }}</li>
+                <li class="breadcrumb-item">{{ $application->name }}</li>   
             </ol>
         </div>
 
@@ -21,7 +21,7 @@
                     <div class="row mt-3 mr-2">
                     </div>
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Application: {{ $application->name }}</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Applications</h6>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -38,8 +38,40 @@
                                     <tr>
                                         <th>Sp_entity_id</th>
                                         <td>: {{ $application->sp_entity_id }}</td>
+                                    </tr>              
+                                    <tr>
+                                        <th>certificate_key : </th>
+                                        <td><hr><textarea class="form-control" readonly> {{ $application->certificate_key}}</textarea></td>
+                                    </tr>                                    
+                                    <tr>
+                                        <th>certificate : </th>
+                                        <td><hr><textarea class="form-control" readonly> {{ $application->certificate }}</textarea></td>
+                                    </tr>                                    
+                                </table>
+                            <br/>
+                                <table class="table">
+                                    <tr>
+                                        <th>User</th>
+                                        <th>Remove Permission</th>
                                     </tr>
-                                    
+                                    @foreach ($userApps as $app)
+                                    @if (!$app->user)
+                                        @continue
+                                    @endif
+                                    <tr>
+                                        <td>{{ $app->user->first_name }}</td>
+                                        <td>
+                                            <form action="{{ url('users/application/delete') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name='user_id' value="{{ $app->user->id }}">
+
+                                                <input type="hidden" name='application_id'
+                                                    value="{{ $app->application->id }}">
+                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 </table>
                                 
                             </div>
