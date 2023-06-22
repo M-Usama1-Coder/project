@@ -61,6 +61,16 @@
                                     <input type="password" class="form-control" name="password" id="password"
                                         placeholder="Password">
                                 </div>
+                                <div class="form-group col-md-6">
+                                    <label for="group">Group</label>
+                                    <select name="group" id="group" class="form-control" required>
+                                        @if (!empty($groups))
+                                            @foreach ($groups as $group)
+                                                <option value="{{$group->id}}">{{$group->name}}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
+                                </div>  
 
                             </div>
                             <br>

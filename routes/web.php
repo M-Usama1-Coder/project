@@ -38,3 +38,4 @@ Route::get('applications/create', [ApplicationController::class, 'create'])->mid
 Route::post('applications/store', [ApplicationController::class, 'store'])->middleware('auth');
 Route::get('applications/edit/{id}', [ApplicationController::class, 'edit'])->middleware('auth');
 Route::post('applications/update/{id}', [ApplicationController::class, 'update'])->middleware('auth');
+Route::get('applications/show/{id}', [ApplicationController::class, 'show'])->middleware('auth');

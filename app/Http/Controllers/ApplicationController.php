@@ -6,6 +6,7 @@ use App\Models\Application;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Spatie\Permission\Models\Role;
 
@@ -18,7 +19,7 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        $applications = Application::all();
+        $applications = DB::table('applications')->get();
         return view('applications', ['applications' => $applications]);
     }
 
@@ -43,14 +44,16 @@ class ApplicationController extends Controller
         //
         if ($request->method() == 'POST') {
             $application = $request->validate([
-                'title' => 'required|string|max:255',
-                'url' => 'required|string',
-                'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+
+                'name' => 'required|string|max:255',
+                'sp_sso_url' => 'string',
+                'sp_entity_id' => 'required|string',
             ]);
+            $application['id']=md5($application['sp_entity_id']);
 
             Application::create($application);
 
-            Session::flash('message', 'Application ' . $application['title'] . ' Successfully Created!!!');
+            Session::flash('message', 'Application ' . $application['name'] . ' Successfully Created!!!');
             Session::flash('alert-class', 'alert-success');
 
             return redirect('applications');
@@ -78,7 +81,8 @@ class ApplicationController extends Controller
     public function edit($id)
     {
         //
-        $application = Application::where('id', $id)->first();
+        $application = DB::table('applications')
+                ->where('id', $id)->first();
         return view('forms.updateapplication', ['application' => $application]);
     }
 
@@ -91,9 +95,9 @@ class ApplicationController extends Controller
 
         if ($request->method() == 'POST') {
             $application = $request->validate([
-                'title' => 'required|string|max:255',
-                'url' => 'required|string',
-                'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'name' => 'required|string|max:255',
+                'sp_sso_url' => 'required|string|max:255',
+                'sp_entity_id' => 'required|string',
             ]);
 
          
@@ -101,17 +105,12 @@ class ApplicationController extends Controller
             // if (!empty($application['photo'])) {
             //     $profile['photo'] = $application['photo'];
             // }
-            if ($request->file('photo')) {
-                $imagePath = $request->file('photo');
-                $filename = time() . uniqid() . '_img' . $imagePath->getClientOriginalName();
-                $request->file('photo')->storeAs('profile', $filename, 'public_uploads');
-                $application['photo'] = $filename;
-            }
 
             //end of setting
             $reqApplication->update($application);
+            
 
-            Session::flash('message', 'Application ' . $application['title'] . ' Successfully Updated!!!');
+            Session::flash('message', 'Application ' . $application['name'] . ' Successfully Updated!!!');
             Session::flash('alert-class', 'alert-success');
 
             return redirect('applications');
@@ -127,8 +126,12 @@ class ApplicationController extends Controller
     public function delete(Request $request)
     {
         if ($request->method() == 'POST') {
-            $res = Application::where('id', $request->id)->delete();
+            $res = DB::table('applications')
+                ->where('id', $request->id)
+                ->delete();
+
             return $res;
         }
+        
     }
 }

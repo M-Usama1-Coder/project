@@ -38,14 +38,19 @@
                                 <div class="col-md-9" style="padding-top: 30px">
                                     <div class="row">
                                         <div class="form-group col-md-6">
-                                            <label for="title">Title</label>
-                                            <input type="text" name="title" id="title" class="form-control"
-                                                placeholder="Title" required />
+                                            <label for="name">Name</label>
+                                            <input type="text" name="name" id="name" class="form-control"
+                                                placeholder="Name" required />
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="url">Url</label>
-                                            <input type="text" name="url" id="url" class="form-control"
-                                                placeholder="Url" required />
+                                            <label for="sp_entity_id">sp_sso_url</label>
+                                            <input type="text" name="sp_sso_url" id="sp_sso_url" class="form-control"
+                                                placeholder="sp_sso_url" required />
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="sp_entity_id">sp_entity_id</label>
+                                            <input type="text" name="sp_entity_id" id="sp_entity_id" class="form-control"
+                                                placeholder="sp_entity_id" required />
                                         </div>
                                     </div>
                                   

@@ -7,7 +7,7 @@
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Users</h1>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{url('/') }}">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="{{ url('applications') }}">Application</a></li>
                 <li class="breadcrumb-item">Update User</li>
             </ol>
@@ -38,16 +38,23 @@
                                 <div class="col-md-9" style="padding-top: 30px">
                                     <div class="row">
                                         <div class="form-group col-md-12">
-                                            <label for="title">Title</label>
-                                            <input value="{{ $application->title }}" type="text" name="title" id="title"
-                                                class="form-control" placeholder="Title" required />
+                                            <label for="name">Name</label>
+                                            <input value="{{ $application->name }}" type="text" name="name" id="name"
+                                                class="form-control" placeholder="name" required />
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-12">
-                                            <label for="url">Url</label>
-                                            <input value="{{ $application->url }}" type="text" name="url" id="url"
-                                                class="form-control" placeholder="Url" required />
+                                            <label for="sp_sso_url">sp_sso_url</label>
+                                            <input value="{{ $application->sp_sso_url }}" type="text" name="sp_sso_url" id="sp_sso_url"
+                                                class="form-control" placeholder="Sp_sso_url" required />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <label for="sp_entity_id">sp_entity_id</label>
+                                            <input value="{{ $application->sp_entity_id }}" type="text" name="sp_entity_id" id="sp_entity_id"
+                                                class="form-control" placeholder="sp_entity_id" required />
                                         </div>
                                     </div>
                                 </div>

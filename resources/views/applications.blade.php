@@ -71,7 +71,7 @@
                                                             href="{{ url('applications/edit/' . $application->id) }}"><i
                                                                 data-feather="edit" width="20"></i> Edit</a>
                                                             <button class="dropdown-item"
-                                                                onclick="delete_application({{ $application->id }})"><i
+                                                                onclick="delete_application('{{ $application->id }}')"><i
                                                                     data-feather="trash" width="20"></i> Delete</button>
                                                     </div>
                                                 </div>

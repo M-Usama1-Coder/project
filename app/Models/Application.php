@@ -9,5 +9,5 @@ class Application extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'url', 'photo'];
+    protected $fillable = ['id', 'name', 'sp_sso_url', 'sp_entity_id'];
 }

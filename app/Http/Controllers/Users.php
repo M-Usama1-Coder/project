@@ -34,8 +34,9 @@ class Users extends Controller
      */
     public function create()
     {
-        // $roles = Role::where('name','!=','SuperAdmin')->get();
-        return view('forms.adduser');
+        $groups = DB::table('groups')
+        ->get();
+        return view('forms.adduser', ['groups' => $groups]);
     }
 
     /**
@@ -68,6 +69,8 @@ class Users extends Controller
             Session::flash('message', 'User ' . $user['first_name'] . ' Successfully Created!!!');
             Session::flash('alert-class', 'alert-success');
 
+          
+
             return redirect('users');
         }
     }
@@ -81,7 +84,11 @@ class Users extends Controller
     public function show($id)
     {
         $user = User::where('id', $id)->first();
-        return view('show.userview', ['user' => $user]);
+        $user = DB::table('users')
+        ->where('id', '=', $id)
+        ->first();
+        $applications = DB::table('applications')->get();
+        return view('show.userview', ['user' => $user, 'applications' => $applications]);
     }
 
     /**
@@ -154,8 +161,12 @@ class Users extends Controller
 
             if ($request->group) {
                 $usergroup = UserGroup::where('user_id', $id)->first();
+                if($usergroup){
                 $usergroup->group_id = $request->group;
-                $usergroup->save();
+                $usergroup->save();}else{
+                    $grpArray=array('group_id'=>$request->group, 'user_id'=>$id,'client_id'=>1 );
+                    UserGroup::insert($grpArray);
+                }
             }
 
             Session::flash('message', 'User ' . $user['first_name'] . ' Successfully Updated!!!');
