@@ -28,6 +28,8 @@ Route::get('users/edit/{id}', [Users::class, 'edit'])->middleware('auth');
 Route::get('users/show/{id}', [Users::class, 'show'])->middleware('auth');
 
 Route::post('users/store', [Users::class, 'store'])->middleware('auth');
+Route::post('users/application', [Users::class, 'application'])->middleware('auth');
+Route::post('users/application/delete', [Users::class, 'applicationDelete'])->middleware('auth');
 Route::post('users/delete', [Users::class, 'delete'])->middleware('auth');
 Route::post('users/update/{id}', [Users::class, 'update'])->middleware('auth');
 

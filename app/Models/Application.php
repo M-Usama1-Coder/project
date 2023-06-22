@@ -10,4 +10,8 @@ class Application extends Model
     use HasFactory;
 
     protected $fillable = ['id', 'name', 'sp_sso_url', 'sp_entity_id'];
+
+    protected $casts = [
+        'id' => 'string'
+    ];
 }
