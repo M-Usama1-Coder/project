@@ -52,6 +52,16 @@
                                             <input type="text" name="sp_entity_id" id="sp_entity_id" class="form-control"
                                                 placeholder="sp_entity_id" required />
                                         </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="certificate_key">Certificate_key</label>
+                                            <textarea type="text" name="certificate_key" id="certificate_key" class="form-control"
+                                                placeholder="certificate_key" required ></textarea>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="Certificate">Certificate</label>
+                                            <input type="text" name="Certificate" id="Certificate" class="form-control"
+                                                placeholder="Certificate" required />
+                                        </div>
                                     </div>
                                   
                                 </div>
