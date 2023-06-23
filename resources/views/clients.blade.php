@@ -39,6 +39,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
+                                    <th>Subscription</th>
                                     <th>Subdomain</th>
                                     <th>Options</th>
                                 </tr>
@@ -51,6 +52,7 @@
                                             <td>{{ $key + 1 }}</td>
                                             
                                             <td>{{ $client->name }}</td>
+                                            <td>as</td>
                                             <td>{{ $client->domain }}</td>
                                             
                                             <td>

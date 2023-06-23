@@ -50,3 +50,6 @@ Route::post('clients/delete', [ClientsController::class, 'delete'])->middleware(
 Route::get('clients/edit/{id}', [ClientsController::class, 'edit'])->middleware('auth');
 Route::post('clients/update/{id}', [ClientsController::class, 'update'])->middleware('auth');
 Route::get('clients/show/{id}', [ClientsController::class, 'show'])->middleware('auth');
+Route::post('client/user', [ClientsController::class, 'clientuser'])->middleware('auth');
+
+Route::post('client/delete', [ClientsController::class, 'clientuserDelete'])->middleware('auth');

@@ -6,6 +6,8 @@ use App\Models\Application;
 use App\Models\Profile;
 use App\Models\ApplicationUser;
 use App\Models\Client;
+use App\Models\ClientUser;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -57,7 +59,7 @@ class ClientsController extends Controller
 
             Session::flash('message',  $client['name'] . ' Successfully Created!!!');
             Session::flash('alert-class', 'alert-success');
-            
+
 
 
             return redirect('clients');
@@ -70,14 +72,43 @@ class ClientsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function clientuser(Request $request)
+    {
+        $client_id = $request->client_id;
+        $user_id = $request->user_id;
+
+        $ex = User::where('id', $user_id)->where('client_id', $client_id)->first();
+        if (!$ex) {
+            $ex = User::where('id', $user_id)->first();
+            $ex->client_id = null;
+            $ex->save();
+        }
+        return redirect()->back();
+    }
+
+    public function clientuserDelete(Request $request)
+    {
+        $client_id = $request->client_id;
+        $user_id = $request->user_id;
+        $ex = User::where('id', $user_id)->where('client_id', $client_id)->first();
+        $ex->client_id = null;
+        $ex->save();
+        //  if (!$ex) {
+        //     ClientUser::create(array('user_id' => $user_id, 'client_id' => $client_id));
+        //  }
+        return redirect()->back();
+    }
+
     public function show($id)
     {
         $client = DB::table('clients')
-        ->where('id', '=', $id)
-        ->first();
-    $clients = DB::table('clients')->get();
-    // $client = Client::where('name', $clients->id)->get();
-    return view('show.clientview', ['client' => $client]);
+            ->where('id', '=', $id)
+            ->first();
+        $users = DB::table('users')->get();
+        // $client = Client::where('name', $clients->id)->get();
+        $clientUsers = ClientUser::where('client_id', $client->id)->get();
+        return view('show.clientview', ['client' => $client, 'clientUsers' => $clientUsers, 'users' => $users]);
     }
 
     /**

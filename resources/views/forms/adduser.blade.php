@@ -35,15 +35,13 @@
                             {{ csrf_field() }}
                             <div class="row" style="margin-top: 20px">
 
-                                <div class="col-md-12" style="padding-top: 30px">
+                                <div class="col-md-12" style="padding-top: 20px">
                                     <div class="row">
                                         <div class="form-group col-md-6">
-                                            <label for="first_name">First Name</label>
                                             <input type="text" name="first_name" id="first_name" class="form-control"
                                                 placeholder="Name" required />
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="last_name">Last Name</label>
                                             <input type="text" name="last_name" id="last_name" class="form-control"
                                                 placeholder="Last Name" required />
                                         </div>
@@ -52,18 +50,16 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-6">
-                                    <label for="email">Email</label>
                                     <input type="text" name="email" id="email" class="form-control"
                                         placeholder="Email" required />
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="password">Password</label>
                                     <input type="password" class="form-control" name="password" id="password"
                                         placeholder="Password">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="group">Group</label>
                                     <select name="group" id="group" class="form-control" required>
+                                        <option value="" >Select</option>
                                         @if (!empty($groups))
                                             @foreach ($groups as $group)
                                                 <option value="{{$group->id}}">{{$group->name}}</option>
