@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\Users;
 use Illuminate\Support\Facades\Route;
 
@@ -41,3 +42,11 @@ Route::post('applications/store', [ApplicationController::class, 'store'])->midd
 Route::get('applications/edit/{id}', [ApplicationController::class, 'edit'])->middleware('auth');
 Route::post('applications/update/{id}', [ApplicationController::class, 'update'])->middleware('auth');
 Route::get('applications/show/{id}', [ApplicationController::class, 'show'])->middleware('auth');
+
+Route::get('clients', [ClientsController::class, 'index'])->middleware('auth');
+Route::post('clients/store', [ClientsController::class, 'store'])->middleware('auth');
+Route::get('clients/create', [ClientsController::class, 'create'])->middleware('auth');
+Route::post('clients/delete', [ClientsController::class, 'delete'])->middleware('auth');
+Route::get('clients/edit/{id}', [ClientsController::class, 'edit'])->middleware('auth');
+Route::post('clients/update/{id}', [ClientsController::class, 'update'])->middleware('auth');
+Route::get('clients/show/{id}', [ClientsController::class, 'show'])->middleware('auth');

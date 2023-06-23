@@ -8,8 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link href="{{ asset('assets/img/logo/logo.png') }}" rel="icon">
-    <title>Retrofit</title>
+    <title></title>
     <link href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('assets/css/ruang-admin.min.css') }}" rel="stylesheet">
@@ -17,14 +16,14 @@
 </head>
 
 <body id="page-top">
-    <div id="wrapper">
+    <div id="wrapper" class="">
         <!-- Sidebar -->
         <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/') }}">
                 <div class="sidebar-brand-icon">
                     {{-- <img src="{{ asset('assets/img/logo/logo2.png') }}"> --}}
                 </div>
-                <div class="sidebar-brand-text mx-3">Retrofit</div>
+                <div class="sidebar-brand-text mx-3">Dashboard</div>
             </a>
             <hr class="sidebar-divider my-0">
             <li class="nav-item @yield('dashboard')">
@@ -36,7 +35,7 @@
             <div class="sidebar-heading">
                 Dashboard Panel
             </div>
-            <li class="nav-item @yield('users')">
+            <li  class="nav-item @yield('users')">
                 <a class="nav-link" href="{{ url('users') }}">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Users</span></a>
@@ -45,6 +44,11 @@
                 <a class="nav-link" href="{{ url('applications') }}">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Applications Management</span></a>
+            </li>
+            <li class="nav-item @yield('users')">
+                <a class="nav-link" href="{{ url('clients') }}">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>Clients</span></a>
             </li>
             <hr class="sidebar-divider">
            
@@ -60,7 +64,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Powered By <a href="http://kodevglobal.com/">Kodev Global</a> Pvt Ltd {{ date('Y') }}
+                        <span>Powered By <a href="http://kodevglobal.com/"></a> Pvt Ltd {{ date('Y') }}
                         </span>
                     </div>
                 </div>
