@@ -7,18 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="2DpURKG7ivu7T3tTAFyD2WUEcEZZzRuk6wEB8uzM">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <!-- Meta Tags -->
     <meta name="description" content="">
 
     <!-- Title-->
-    <title>My Apps</title>
+    <title>Admin Panel</title>
 
     <!-- Styles -->
-    <link href="//fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900" rel="stylesheet" type="text/css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="//fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900" rel="stylesheet"
+        type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://idm.rcal.me/backend/css/materialadmin-bootstrap.css">
     <link rel="stylesheet" href="https://idm.rcal.me/backend/css/materialadmin.css">
     <link rel="stylesheet" href="https://idm.rcal.me/backend/css/font-awesome.min.css">
@@ -27,7 +30,7 @@
     <link rel="stylesheet" href="https://idm.rcal.me/backend/css/libs/toastr/toastr.min.css">
     <link rel="stylesheet" href="https://idm.rcal.me/backend/css/app.css">
     <link rel="stylesheet" href="https://idm.rcal.me/backend/css/pagestyling.css">
-
+    @yield('css')
     <style>
         body {
             background: #f7fafc;
@@ -338,7 +341,8 @@
                     <li class="header-nav-brand">
                         <div class="brand-holder">
                             <a href="https://idm.rcal.me">
-                                <img src="https://idm.rcal.me/images/logo.webp"><span class="text-lg text-bold text-secondary"></span>
+                                <img src="https://idm.rcal.me/images/logo.webp"><span
+                                    class="text-lg text-bold text-secondary"></span>
                             </a>
                         </div>
                     </li>
@@ -358,7 +362,7 @@
                         </a>
                         <ul class="dropdown-menu animation-dock">
                             <li>
-                                <a href="https://idm.rcal.me/logout">
+                                <a href="{{ url('signout') }}">
                                     Logout
                                 </a>
                             </li>
@@ -380,7 +384,8 @@
         <div id="menubar" class="menubar-inverse animate">
             <div class="menubar-fixed-panel">
                 <div>
-                    <a class="btn btn-icon-toggle btn-default menubar-toggle" data-toggle="menubar" href="javascript:void(0);">
+                    <a class="btn btn-icon-toggle btn-default menubar-toggle" data-toggle="menubar"
+                        href="javascript:void(0);">
                         <i class="fa fa-bars"></i>
                     </a>
                 </div>
@@ -460,7 +465,8 @@
     </a>
 
     <!-- Modal Logout -->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelLogout" aria-hidden="true">
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabelLogout" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-primary text-light">
@@ -495,7 +501,9 @@
 <script src="https://idm.rcal.me/backend/js/core/source/AppCard.min.js"></script>
 <script src="https://idm.rcal.me/backend/js/core/source/AppForm.min.js"></script>
 <script src="https://idm.rcal.me/backend/js/core/source/AppVendor.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
+</script>
 <script src="https://idm.rcal.me/backend/js/core/source/AppToast.min.js"></script>
 <script src="https://idm.rcal.me/backend/js/core/source/AppBootBox.min.js"></script>
 <script src="https://idm.rcal.me/backend/js/app.js"></script>

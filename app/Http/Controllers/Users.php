@@ -24,9 +24,7 @@ class Users extends Controller
      */
     public function index()
     {
-        $users = DB::table('users')
-            ->select('*')
-            ->get();
+        $users = User::all();
         return view('users', ['users' => $users]);
     }
 
@@ -210,8 +208,7 @@ class Users extends Controller
     public function delete(Request $request)
     {
         if ($request->method() == 'POST') {
-            $res = DB::table('users')
-                ->where('id', '=', $request->id)
+            $res = User::where('id', $request->id)
                 ->delete();
 
             echo $res;

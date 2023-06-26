@@ -22,7 +22,9 @@ Route::get('signout', [AuthController::class, 'signout']);
 
 Route::post('auth', [AuthController::class, 'authenticate']);
 
-Route::get('/', [Dashboard::class, 'index'])->middleware('auth');
+Route::get('/', function () {
+    return redirect('users');
+})->middleware('auth');
 Route::get('users', [Users::class, 'index'])->middleware('auth');
 Route::get('users/create', [Users::class, 'create'])->middleware('auth');
 Route::get('users/edit/{id}', [Users::class, 'edit'])->middleware('auth');
