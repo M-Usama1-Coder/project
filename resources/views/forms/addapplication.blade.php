@@ -38,27 +38,22 @@
                                 <div class="col-md-9" style="padding-top: 30px">
                                     <div class="row">
                                         <div class="form-group col-md-6">
-                                            <label for="name">Name</label>
                                             <input type="text" name="name" id="name" class="form-control"
                                                 placeholder="Name" required />
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="sp_entity_id">sp_sso_url</label>
                                             <input type="text" name="sp_sso_url" id="sp_sso_url" class="form-control"
                                                 placeholder="sp_sso_url" required />
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="sp_entity_id">sp_entity_id</label>
                                             <input type="text" name="sp_entity_id" id="sp_entity_id" class="form-control"
                                                 placeholder="sp_entity_id" required />
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="certificate_key">Certificate_key</label>
                                             <textarea type="text" name="certificate_key" id="certificate_key" class="form-control"
                                                 placeholder="certificate_key" required ></textarea>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="certificate">Certificate</label>
                                             <input type="text" name="certificate" id="certificate" class="form-control"
                                                 placeholder="Certificate" required />
                                         </div>
