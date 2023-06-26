@@ -16,8 +16,9 @@
     <title>My Apps</title>
 
     <!-- Styles -->
-    <link href="//fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900" rel="stylesheet"
-        type="text/css" />
+    <link href="//fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://idm.rcal.me/backend/css/materialadmin-bootstrap.css">
     <link rel="stylesheet" href="https://idm.rcal.me/backend/css/materialadmin.css">
     <link rel="stylesheet" href="https://idm.rcal.me/backend/css/font-awesome.min.css">
@@ -337,14 +338,13 @@
                     <li class="header-nav-brand">
                         <div class="brand-holder">
                             <a href="https://idm.rcal.me">
-                                <img src="https://idm.rcal.me/images/logo.webp"><span
-                                    class="text-lg text-bold text-secondary"></span>
+                                <img src="https://idm.rcal.me/images/logo.webp"><span class="text-lg text-bold text-secondary"></span>
                             </a>
                         </div>
                     </li>
                     <li>
                         <a class="btn btn-icon-toggle menubar-toggle" data-toggle="menubar" href="javascript:void(0);">
-                            <i class="md md-menu"></i>
+                            <i class="fa-solid fa-bars"></i>
                         </a>
                     </li>
                 </ul>
@@ -359,7 +359,6 @@
                         <ul class="dropdown-menu animation-dock">
                             <li>
                                 <a href="https://idm.rcal.me/logout">
-                                    <i class="md md-settings-power text-danger"></i>
                                     Logout
                                 </a>
                             </li>
@@ -381,8 +380,7 @@
         <div id="menubar" class="menubar-inverse animate">
             <div class="menubar-fixed-panel">
                 <div>
-                    <a class="btn btn-icon-toggle btn-default menubar-toggle" data-toggle="menubar"
-                        href="javascript:void(0);">
+                    <a class="btn btn-icon-toggle btn-default menubar-toggle" data-toggle="menubar" href="javascript:void(0);">
                         <i class="fa fa-bars"></i>
                     </a>
                 </div>
@@ -401,7 +399,7 @@
                             <div class="gui-icon">
                                 <i class="fa fa-users"></i>
                             </div>
-                            <span class="title">Users</span>
+                            <span class=" title">Users</span>
                         </a>
                     </li>
                     <li class="menu ">
@@ -454,8 +452,7 @@
     </a>
 
     <!-- Modal Logout -->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelLogout"
-        aria-hidden="true">
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelLogout" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-primary text-light">
@@ -490,6 +487,7 @@
 <script src="https://idm.rcal.me/backend/js/core/source/AppCard.min.js"></script>
 <script src="https://idm.rcal.me/backend/js/core/source/AppForm.min.js"></script>
 <script src="https://idm.rcal.me/backend/js/core/source/AppVendor.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <script src="https://idm.rcal.me/backend/js/core/source/AppToast.min.js"></script>
 <script src="https://idm.rcal.me/backend/js/core/source/AppBootBox.min.js"></script>
 <script src="https://idm.rcal.me/backend/js/app.js"></script>
