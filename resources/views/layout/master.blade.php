@@ -397,17 +397,25 @@
                     <li class="menu ">
                         <a href="{{ url('users') }}">
                             <div class="gui-icon">
-                                <i class="fa fa-users"></i>
+                                <i class="fa fa-users" style="font-size: 20px;"></i>
                             </div>
                             <span class=" title">Users</span>
                         </a>
                     </li>
                     <li class="menu ">
                         <a href="{{ url('applications') }}">
-                            <div class="gui-icon">
-                                <i class="fa fa-users"></i>
+                            <div class="gui-icon p-2">
+                                <i class="fa-solid fa-file-invoice" style="font-size: 20px;"></i>
                             </div>
-                            <span class="title">Application Management</span>
+                            <span class="title m-1">Application Management</span>
+                        </a>
+                    </li>
+                    <li class="menu ">
+                        <a href="{{ url('clients') }}">
+                            <div class="gui-icon p-2">
+                                <i class="fa-sharp  fa-solid fa-sitemap" style="font-size: 20px;"></i>
+                            </div>
+                            <span class="title m-3">Organization</span>
                         </a>
                     </li>
 

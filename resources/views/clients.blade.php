@@ -35,7 +35,7 @@ active
                     <div id="del_client" style="display: none" class="alert alert-danger"><b>Deleted!</b> Successfully!
                     </div>
                     <table class="table align-items-center table-flush table-hover" id="clients">
-                        <thead class="bg-primary text-light">
+                        <thead class="bg-primary text-dark">
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
@@ -52,6 +52,7 @@ active
                                 <td>{{ $key + 1 }}</td>
 
                                 <td>{{ $client->name }}</td>
+                                <td>True</td>
                                 <td>{{ $client->domain }}</td>
                                 <td>
 
