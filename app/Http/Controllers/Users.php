@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ApplicationUserResource;
 use App\Models\Application;
+use App\Models\ApplicationClient;
 use App\Models\ApplicationUser;
 use App\Models\ClientUser;
 use App\Models\Group;
@@ -130,13 +131,20 @@ class Users extends Controller
      */
     public function show($id)
     {
+        $authUser = Auth::user();
+        $currentGroup = !empty($authUser->group) ? $authUser->group->group->name : null;
         // $user = User::where('id', $id)->first();
         $user = DB::table('users')
             ->where('id', '=', $id)
             ->first();
-        $applications = DB::table('applications')->get();
-        $userApps = ApplicationUser::where('user_id', $user->id)->get();
-        return view('show.userview', ['user' => $user, 'applications' => $applications, 'userApps' => $userApps]);
+        if ($currentGroup == 'Administrator') {
+            $applications = DB::table('applications')->get();
+            $userApps = ApplicationUser::where('user_id', $user->id)->get();
+        } else {
+            $clientApps = ApplicationClient::where('client_id', $authUser->client_id)->get();
+            $userApps = ApplicationUser::where('user_id', $user->id)->get();
+        }
+        return view('organization.show.userview-organization', ['user' => $user, 'clientApps' => $clientApps, 'userApps' => $userApps]);
     }
 
     /**

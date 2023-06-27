@@ -42,6 +42,7 @@
                                     <th>Status</th>
                                     <th>Membership</th>
                                     <th>Email</th>
+                                    <th>Options</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -57,6 +58,23 @@
                                             <td>{{ $user->status }}</td>
                                             <td>{{ $user->membership }}</td>
                                             <td>{{ $user->email }}</td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button class="btn btn-primary btn-sm dropdown-toggle" type="button"
+                                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fas fa-cogs"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu" x-placement="bottom-start"
+                                                        style="padding: 10px;position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 31px, 0px);">
+                                                        <a class="dropdown-item"
+                                                            href="{{ url('users/show/' . $user->id) }}"><i
+                                                                data-feather="eye" width="20"></i> View</a>
+                                                        <a class="dropdown-item"
+                                                            href="{{ url('users/edit/' . $user->id) }}"><i
+                                                                data-feather="edit" width="20"></i> Edit</a>
+                                                    </div>
+                                                </div>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 @endif
