@@ -140,11 +140,12 @@ class Users extends Controller
         if ($currentGroup == 'Administrator') {
             $applications = DB::table('applications')->get();
             $userApps = ApplicationUser::where('user_id', $user->id)->get();
+            return view('show.userview', ['user' => $user, 'applications' => $applications, 'userApps' => $userApps]);
         } else {
             $clientApps = ApplicationClient::where('client_id', $authUser->client_id)->get();
             $userApps = ApplicationUser::where('user_id', $user->id)->get();
+            return view('organization.show.userview-organization', ['user' => $user, 'clientApps' => $clientApps, 'userApps' => $userApps]);
         }
-        return view('organization.show.userview-organization', ['user' => $user, 'clientApps' => $clientApps, 'userApps' => $userApps]);
     }
 
     /**
