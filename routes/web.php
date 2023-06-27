@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
         return redirect('users');
     });
     // ADMIN ROUTES
-    Route::get('users', [Users::class, 'index'])->middleware('admin');
+    Route::get('users', [Users::class, 'index']);
     Route::get('users/create', [Users::class, 'create'])->middleware('admin');
     Route::get('users/edit/{id}', [Users::class, 'edit'])->middleware('admin');
     Route::get('users/show/{id}', [Users::class, 'show'])->middleware('admin');
@@ -38,7 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::post('users/update/{id}', [Users::class, 'update'])->middleware('admin');
 
 
-    Route::get('applications', [ApplicationController::class, 'index'])->middleware('admin');
+    Route::get('applications', [ApplicationController::class, 'index']);
     Route::post('applications/delete', [ApplicationController::class, 'delete'])->middleware('admin');
     Route::get('applications/create', [ApplicationController::class, 'create'])->middleware('admin');
     Route::post('applications/store', [ApplicationController::class, 'store'])->middleware('admin');

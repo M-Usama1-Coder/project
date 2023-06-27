@@ -27,10 +27,12 @@ class AuthController extends Controller
             $credentials = $request->only('email', 'password');
             $user = User::where('email', $request->email)->first();
             $currentGroup = !empty($user->group) ? $user->group->group->name : null;
-            if ($currentGroup != 'Administrator') {
-                Session::flash('message', 'This user is not an Administrator!');
-                Session::flash('alert-class', 'alert-danger');
-                return redirect('login');
+            if (empty($user->client_id)) {
+                if ($currentGroup != 'Administrator') {
+                    Session::flash('message', 'You are not Authorized!');
+                    Session::flash('alert-class', 'alert-danger');
+                    return redirect('login');
+                }
             }
             if (Auth::attempt($credentials)) {
                 return redirect()->intended('/');

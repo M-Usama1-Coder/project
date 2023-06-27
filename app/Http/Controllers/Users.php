@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ApplicationUserResource;
 use App\Models\Application;
 use App\Models\ApplicationUser;
+use App\Models\ClientUser;
 use App\Models\Group;
 use App\Models\User;
 use App\Models\Profile;
 use App\Models\UserGroup;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
@@ -24,8 +26,16 @@ class Users extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        return view('users', ['users' => $users]);
+        $user = Auth::user();
+        $currentGroup = !empty($user->group) ? $user->group->group->name : null;
+        if ($currentGroup == 'Administrator') {
+            $users = User::all();
+            return view('users', ['users' => $users]);
+        } else {
+            $client_id = $user->client_id;
+            $users = ClientUser::where('client_id', $client_id)->get();
+            return view('organization.users-organization', ['users' => $users]);
+        }
     }
 
     /**

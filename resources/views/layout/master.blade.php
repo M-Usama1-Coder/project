@@ -12,7 +12,17 @@
     <meta name="description" content="">
 
     <!-- Title-->
-    <title>Admin Panel</title>
+    @php
+        $user = Auth::user();
+        $currentGroup = !empty($user->group) ? $user->group->group->name : null;
+        if ($currentGroup == 'Administrator') {
+            $title = 'Admin Panel';
+        } elseif (!empty($user->client_id)) {
+            $title = 'Oranization Panel';
+        }
+
+    @endphp
+    <title>{{ $title }}</title>
 
     <!-- Styles -->
     <link href="//fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900" rel="stylesheet"
@@ -415,14 +425,17 @@
                             <span class="title m-1">Application Management</span>
                         </a>
                     </li>
-                    <li class="menu ">
-                        <a href="{{ url('clients') }}">
-                            <div class="gui-icon p-2">
-                                <i class="fa-sharp  fa-solid fa-sitemap" style="font-size: 20px;"></i>
-                            </div>
-                            <span class="title m-3">Organization</span>
-                        </a>
-                    </li>
+                    @if ($currentGroup == 'Administrator')
+                        <li class="menu ">
+                            <a href="{{ url('clients') }}">
+                                <div class="gui-icon p-2">
+                                    <i class="fa-sharp  fa-solid fa-sitemap" style="font-size: 20px;"></i>
+                                </div>
+                                <span class="title m-3">Organization</span>
+                            </a>
+                        </li>
+                    @endif
+
 
                 </ul>
                 <!--end .main-menu -->
