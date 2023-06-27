@@ -241,9 +241,15 @@ class Users extends Controller
      */
     public function delete(Request $request)
     {
+        $authUser = Auth::user();
+        $currentGroup = !empty($authUser->group) ? $authUser->group->group->name : null;
         if ($request->method() == 'POST') {
-            $res = User::where('id', $request->id)
-                ->delete();
+            if ($currentGroup == 'Administrator') {
+                $res = User::where('id', $request->id)
+                    ->delete();
+            } else {
+                $res = ClientUser::where('user_id', $request->id)->where('client_id', $authUser->client_id)->delete();
+            }
 
             echo $res;
         }

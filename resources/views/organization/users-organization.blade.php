@@ -72,6 +72,9 @@
                                                         <a class="dropdown-item"
                                                             href="{{ url('users/edit/' . $user->id) }}"><i
                                                                 data-feather="edit" width="20"></i> Edit</a>
+                                                        <button class="dropdown-item"
+                                                            onclick="delete_user('{{ $user->id }}')"><i
+                                                                data-feather="trash" width="20"></i> Delete</button>
                                                     </div>
                                                 </div>
                                             </td>
@@ -98,5 +101,30 @@
             $('#users').DataTable(); // ID From dataTable
             $('#dataTableHover').DataTable(); // ID From dataTable with Hover
         });
+    </script>
+    <script>
+        function delete_user(id) {
+            let _token = $('meta[name="csrf-token"]').attr('content');
+            if (confirm('Are you sure ?')) {
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('users/delete') }}",
+                    data: {
+                        _token: _token,
+                        id: id,
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        $("#row_" + id).slideUp(200);
+                        $('#del_user').hide(0);
+                        $('#del_user').slideDown(200);
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+                });
+            }
+
+        }
     </script>
 @endsection

@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::post('users/store', [Users::class, 'store']);
     Route::post('users/application', [Users::class, 'application']);
     Route::post('users/application/delete', [Users::class, 'applicationDelete']);
-    Route::post('users/delete', [Users::class, 'delete'])->middleware('admin');
+    Route::post('users/delete', [Users::class, 'delete']);
     Route::post('users/update/{id}', [Users::class, 'update']);
 
 
