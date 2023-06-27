@@ -45,9 +45,15 @@ class Users extends Controller
      */
     public function create()
     {
-        $groups = DB::table('groups')
-            ->get();
-        return view('forms.adduser', ['groups' => $groups]);
+        $user = Auth::user();
+        $currentGroup = !empty($user->group) ? $user->group->group->name : null;
+        if ($currentGroup == 'Administrator') {
+            $groups = DB::table('groups')
+                ->get();
+            return view('forms.adduser', ['groups' => $groups]);
+        } else {
+            return view('forms.adduser');
+        }
     }
 
     /**
@@ -59,6 +65,8 @@ class Users extends Controller
     public function store(Request $request)
     {
         //
+        $authUser = Auth::user();
+        $currentGroup = !empty($authUser->group) ? $authUser->group->group->name : null;
 
         if ($request->method() == 'POST') {
             $user = $request->validate([
@@ -68,19 +76,27 @@ class Users extends Controller
                 'password' => 'required|string|min:6',
             ]);
 
-            $newUser = User::create([
+            $dataArray = [
                 'id' => md5($user['email']),
                 'first_name' => $user['first_name'],
                 'last_name' => $user['last_name'],
                 'email' => $user['email'],
                 'password' => Hash::make($user['password']),
-            ]);
-
+            ];
+            User::create($dataArray);
+            if ($currentGroup == 'Administrator') {
+                $grpArray = array('group_id' => $request->group, 'user_id' => $dataArray['id'], 'client_id' => null);
+            } else {
+                ClientUser::create(array(
+                    'user_id' => $dataArray['id'],
+                    'client_id' => $authUser->client_id
+                ));
+                $grpArray = array('group_id' => '17d99dca-1958-4ddb-b9a0-7fe393ff4cef', 'user_id' => $dataArray['id'], 'client_id' => null);
+            }
+            UserGroup::create($grpArray);
 
             Session::flash('message', 'User ' . $user['first_name'] . ' Successfully Created!!!');
             Session::flash('alert-class', 'alert-success');
-
-
 
             return redirect('users');
         }
@@ -197,7 +213,7 @@ class Users extends Controller
                     $usergroup->group_id = $request->group;
                     $usergroup->save();
                 } else {
-                    $grpArray = array('group_id' => $request->group, 'user_id' => $id, 'client_id' => 1);
+                    $grpArray = array('group_id' => $request->group, 'user_id' => $id, 'client_id' => null);
                     UserGroup::insert($grpArray);
                 }
             }

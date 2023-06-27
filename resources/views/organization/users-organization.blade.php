@@ -18,7 +18,10 @@
             <div class="col-lg-12">
                 <div class="card mb-4">
                     <div class="row mt-3 mr-2">
-
+                        <div class="col-md-12 text-right">
+                            <a class="btn btn-primary" href="{{ url('users/create') }}"><i class="fas fa-plus"></i> Add
+                                User</a>
+                        </div>
                     </div>
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">List of Users</h6>

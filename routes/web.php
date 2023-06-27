@@ -27,11 +27,11 @@ Route::middleware('auth')->group(function () {
     });
     // ADMIN ROUTES
     Route::get('users', [Users::class, 'index']);
-    Route::get('users/create', [Users::class, 'create'])->middleware('admin');
+    Route::get('users/create', [Users::class, 'create']);
     Route::get('users/edit/{id}', [Users::class, 'edit'])->middleware('admin');
     Route::get('users/show/{id}', [Users::class, 'show'])->middleware('admin');
 
-    Route::post('users/store', [Users::class, 'store'])->middleware('admin');
+    Route::post('users/store', [Users::class, 'store']);
     Route::post('users/application', [Users::class, 'application'])->middleware('admin');
     Route::post('users/application/delete', [Users::class, 'applicationDelete'])->middleware('admin');
     Route::post('users/delete', [Users::class, 'delete'])->middleware('admin');

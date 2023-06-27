@@ -57,16 +57,23 @@
                                     <input type="password" class="form-control" name="password" id="password"
                                         placeholder="Password">
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <select name="group" id="group" class="form-control" required>
-                                        <option value="" >Select</option>
-                                        @if (!empty($groups))
-                                            @foreach ($groups as $group)
-                                                <option value="{{$group->id}}">{{$group->name}}</option>
-                                            @endforeach
-                                        @endif
-                                    </select>
-                                </div>  
+                                @php
+                                    $user = Auth::user();
+                                    $currentGroup = !empty($user->group) ? $user->group->group->name : null;
+                                @endphp
+                                @if ($currentGroup == 'Administrator')
+                                    <div class="form-group col-md-6">
+                                        <select name="group" id="group" class="form-control" required>
+                                            <option value="">Select</option>
+                                            @if (!empty($groups))
+                                                @foreach ($groups as $group)
+                                                    <option value="{{ $group->id }}">{{ $group->name }}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                    </div>
+                                @endif
+
 
                             </div>
                             <br>
