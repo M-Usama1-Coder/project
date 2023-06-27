@@ -77,13 +77,25 @@ class ClientsController extends Controller
     {
         $client_id = $request->client_id;
         $user_id = $request->user_id;
-
-        $ex = User::where('id', $user_id)->where('client_id', $client_id)->first();
-        if (!$ex) {
-            $ex = User::where('id', $user_id)->first();
-            $ex->client_id = null;
-            $ex->save();
+        $ex = ClientUser::where('client_id', $client_id)->where('user_id', $user_id)->first();
+        if ($client_id && $user_id && !$ex) {
+            ClientUser::create(array(
+                'client_id' => $client_id,
+                'user_id' => $user_id
+            ));
         }
+
+        return redirect()->back();
+    }
+
+    public function clientuserOperator(Request $request)
+    {
+        $client_id = $request->client_id;
+        $user_id = $request->user_id;
+        User::where('client_id', $client_id)->update(array('client_id' => NULL));
+        $user = User::where('id', $user_id)->first();
+        $user->client_id=$client_id;
+        $user->save();
         return redirect()->back();
     }
 
@@ -91,12 +103,7 @@ class ClientsController extends Controller
     {
         $client_id = $request->client_id;
         $user_id = $request->user_id;
-        $ex = User::where('id', $user_id)->where('client_id', $client_id)->first();
-        $ex->client_id = null;
-        $ex->save();
-        //  if (!$ex) {
-        //     ClientUser::create(array('user_id' => $user_id, 'client_id' => $client_id));
-        //  }
+        $ex = ClientUser::where('client_id', $client_id)->where('user_id', $user_id)->delete();
         return redirect()->back();
     }
 
@@ -105,7 +112,7 @@ class ClientsController extends Controller
         $client = DB::table('clients')
             ->where('id', '=', $id)
             ->first();
-        $users = DB::table('users')->get();
+        $users = DB::table('users')->whereNull('client_id')->get();
         // $client = Client::where('name', $clients->id)->get();
         $clientUsers = ClientUser::where('client_id', $client->id)->get();
         return view('show.clientview', ['client' => $client, 'clientUsers' => $clientUsers, 'users' => $users]);

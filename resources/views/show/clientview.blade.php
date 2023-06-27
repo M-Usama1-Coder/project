@@ -31,7 +31,7 @@
                                         <th>Name:</th>
                                         <td> {{ $client->name }}</td>
                                     </tr>
-                                    
+
                                     <tr>
                                         <th>Sub_domain: </th>
                                         <td class="p-3"> {{ $client->domain }}</td>
@@ -39,82 +39,84 @@
 
                                 </table>
                                 <Hr>
-                                    <label for="client_id" class="text-center p-1x">Add Users: </label>
-                                    <div class="form-group col-md-8 d-flex">
-                                        <form action="{{ url('client/user') }}" class="d-flex" method="POST">
-                                            @csrf
-                                            <input type="hidden" name='client_id'
-                                                value="{{ $client->id }}">
-                                            <select name="user_id" id="client_id" class="form-control" required>
-                                                @if (!empty($users))
-                                                    @foreach ($users as $user)
-                                                        <option value="{{ $user->id }}">{{ $user->first_name }}
-                                                        </option>
-                                                    @endforeach
-                                                @endif
-    
-                                            </select>
-                                            <button type="submit" class="btn btn-primary ml-3">Add</button>
-                                        </form>
-                                    </div>
-                                    <div class="d-flex">
-                                        <div>
+                                <h4>Users</h4>
+                                <div class="form-group col-md-8 d-flex">
+                                    <form action="{{ url('client/user') }}" class="d-flex" method="POST">
+                                        @csrf
+                                        <input type="hidden" name='client_id' value="{{ $client->id }}">
+                                        <select name="user_id" id="user_id" class="form-control" required>
+                                            @if (!empty($users))
+                                                @foreach ($users as $user)
+                                                    <option value="{{ $user->id }}">{{ $user->first_name }}
+                                                    </option>
+                                                @endforeach
+                                            @endif
 
-                                            <table class="table">
-                                                <tr>
-                                                <th>User</th>
-                                                <th>Remove User</th>
-                                            </tr>
-                                            @foreach ($clientUsers as $user)
-                                            <tr>
-                                                <td>{{ $user->user->first_name }}</td>
-                                                <td>
-                                                    <form action="{{ url('client/delete') }}" method="POST">
-                                                        @csrf
-                                                        <input type="hidden" name='client_id' value="{{ $client->id }}">
-                                                        
-                                                        <input type="hidden" name='user_id'
-                                                        value="{{ $user->user->id }}">
-                                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                            @endforeach
-                                        </table>
-                                    </div>
-                                    <div>
+                                        </select>
+                                        <button type="submit" class="btn btn-primary ml-3">Add</button>
+                                    </form>
+                                </div>
 
-                                        <table class="table">
-                                            <tr>
-                                                <th>User</th>
-                                                <th>Remove User</th>
-                                            </tr>
-                                            @foreach ($clientUsers as $user)
-                                            <tr>
-                                                <td>{{ $user->user->first_name }}</td>
-                                                <td>
-                                                    <form action="{{ url('client/delete') }}" method="POST">
-                                                        @csrf
-                                                        <input type="hidden" name='client_id' value="{{ $client->id }}">
-                                                        
-                                                        <input type="hidden" name='user_id'
-                                                                value="{{ $user->user->id }}">
-                                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+
+                                <table class="table">
+                                    <tr>
+                                        <th class="text-center">User</th>
+                                        <th class="text-center">Action</th>
+                                    </tr>
+                                    @foreach ($clientUsers as $user)
+                                        <tr>
+                                            <td>{{ $user->user->first_name }}</td>
+                                            <td>
+                                                @if ($user->user->client_id)
+                                                    <span class="badge bg-primary">Operator</span>
+                                                @else
+                                                    <div class="btn-group">
+                                                        <button class="btn btn-primary btn-sm dropdown-toggle"
+                                                            type="button" data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="fas fa-cogs"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu" x-placement="bottom-start"
+                                                            style="padding: 10px;position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 31px, 0px);">
+                                                            <form action="{{ url('client/operator') }}" method="POST">
+                                                                @csrf
+                                                                <input type="hidden" name='client_id'
+                                                                    value="{{ $client->id }}">
+
+                                                                <input type="hidden" name='user_id'
+                                                                    value="{{ $user->user->id }}">
+                                                                <button class="dropdown-item" type="submit"
+                                                                    class="btn btn-danger btn-sm">Make Operator</button>
                                                             </form>
-                                                        </td>
-                                                    </tr>
-                                                    @endforeach
-                                                </table>
-                                            </div>
-                                    </div>
-                               
-                                
+
+                                                            <form action="{{ url('client/delete') }}" method="POST">
+                                                                @csrf
+                                                                <input type="hidden" name='client_id'
+                                                                    value="{{ $client->id }}">
+
+                                                                <input type="hidden" name='user_id'
+                                                                    value="{{ $user->user->id }}">
+                                                                <button class="dropdown-item" type="submit"
+                                                                    class="btn btn-danger btn-sm">Delete</button>
+                                                            </form>
+
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </table>
                             </div>
                         </div>
+
+
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    </div>
     </div>
 
 @endsection
