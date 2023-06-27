@@ -25,7 +25,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-9 mt-4 p-4">
+                            <div class="col-md-6 mt-4 p-4">
                                 <table>
                                     <tr>
                                         <th>Name:</th>
@@ -89,7 +89,7 @@
                                                                     class="btn btn-danger btn-sm">Make Operator</button>
                                                             </form>
 
-                                                            <form action="{{ url('client/delete') }}" method="POST">
+                                                            <form action="{{ url('client/userApp/delete') }}" method="POST">
                                                                 @csrf
                                                                 <input type="hidden" name='client_id'
                                                                     value="{{ $client->id }}">
@@ -106,6 +106,69 @@
                                             </td>
                                         </tr>
                                     @endforeach
+                                </table>
+                            </div>
+
+                            <div class="col-md-6 mt-4 p-4">
+                                <br /><br />
+                                <Hr />
+                                <h4>Applications</h4>
+                                <div class="form-group col-md-8 d-flex">
+                                    <form action="{{ url('client/application') }}" class="d-flex" method="POST">
+                                        @csrf
+                                        <input type="hidden" name='client_id' value="{{ $client->id }}">
+                                        <select name="application_id" id="application_id" class="form-control p-2 "
+                                            required>
+                                            @if (!empty($applications))
+                                                @foreach ($applications as $application)
+                                                    <option value="{{ $application->id }}">{{ $application->name }}
+                                                    </option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                        <button type="submit" class="btn btn-primary ml-3">Add</button>
+                                    </form>
+                                </div>
+
+
+                                <table class="table">
+                                    <tr>
+                                        <th class="text-center">Application</th>
+                                        <th class="text-center">Action</th>
+                                    </tr>
+                                    @if (!empty($clientApps))
+                                        @foreach ($clientApps as $clientApp)
+                                            <tr>
+                                                <td>{{ $clientApp->application->name }}</td>
+                                                <td>
+
+                                                    <div class="btn-group">
+                                                        <button class="btn btn-primary btn-sm dropdown-toggle"
+                                                            type="button" data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="fas fa-cogs"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu" x-placement="bottom-start"
+                                                            style="padding: 10px;position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 31px, 0px);">
+
+                                                            <form action="{{ url('client/userApp/delete') }}" method="POST">
+                                                                @csrf
+                                                                <input type="hidden" name='client_id'
+                                                                    value="{{ $client->id }}">
+
+                                                                <input type="hidden" name='application_id'
+                                                                    value="{{ $clientApp->application->id }}">
+                                                                <button class="dropdown-item" type="submit"
+                                                                    class="btn btn-danger btn-sm">Delete</button>
+                                                            </form>
+
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+
                                 </table>
                             </div>
                         </div>

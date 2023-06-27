@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Application;
+use App\Models\ApplicationClient;
 use App\Models\Profile;
 use App\Models\ApplicationUser;
 use App\Models\Client;
@@ -88,22 +89,40 @@ class ClientsController extends Controller
         return redirect()->back();
     }
 
+    public function application(Request $request)
+    {
+        $application_id = $request->application_id;
+        $client_id = $request->client_id;
+
+        $ex = ApplicationClient::where('client_id', $client_id)->where('application_id', $application_id)->first();
+        if (!$ex) {
+            ApplicationClient::create(array('client_id' => $client_id, 'application_id' => $application_id));
+        }
+        return redirect()->back();
+    }
+
     public function clientuserOperator(Request $request)
     {
         $client_id = $request->client_id;
         $user_id = $request->user_id;
         User::where('client_id', $client_id)->update(array('client_id' => NULL));
         $user = User::where('id', $user_id)->first();
-        $user->client_id=$client_id;
+        $user->client_id = $client_id;
         $user->save();
         return redirect()->back();
     }
 
-    public function clientuserDelete(Request $request)
+    public function clientUserAppDelete(Request $request)
     {
         $client_id = $request->client_id;
-        $user_id = $request->user_id;
-        $ex = ClientUser::where('client_id', $client_id)->where('user_id', $user_id)->delete();
+        if (!empty($request->user_id)) {
+            $user_id = $request->user_id;
+            $ex = ClientUser::where('client_id', $client_id)->where('user_id', $user_id)->delete();
+        }
+        if (!empty($request->application_id)) {
+            $application_id = $request->application_id;
+            $ex = ApplicationClient::where('client_id', $client_id)->where('application_id', $application_id)->delete();
+        }
         return redirect()->back();
     }
 
@@ -115,7 +134,10 @@ class ClientsController extends Controller
         $users = DB::table('users')->whereNull('client_id')->get();
         // $client = Client::where('name', $clients->id)->get();
         $clientUsers = ClientUser::where('client_id', $client->id)->get();
-        return view('show.clientview', ['client' => $client, 'clientUsers' => $clientUsers, 'users' => $users]);
+        $applications = DB::table('applications')->get();
+        $clientApps = ApplicationClient::where('client_id', $client->id)->get();
+
+        return view('show.clientview', ['client' => $client, 'clientApps' => $clientApps, 'applications' => $applications, 'clientUsers' => $clientUsers, 'users' => $users]);
     }
 
     /**
