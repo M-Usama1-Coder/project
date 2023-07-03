@@ -50,6 +50,14 @@
                                                 placeholder="sp_entity_id" required />
                                         </div>
                                         <div class="form-group col-md-6">
+                                            <input type="text" name="signonmethod" id="signonmethod" class="form-control"
+                                                placeholder="signonmethod" required />
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="text" name="saml_issuer_id" id="saml_issuer_id" class="form-control"
+                                                placeholder="saml_issuer_id" required />
+                                        </div>
+                                        <div class="form-group col-md-6">
                                             <textarea type="text" name="certificate_key" id="certificate_key" class="form-control"
                                                 placeholder="certificate_key" required ></textarea>
                                         </div>

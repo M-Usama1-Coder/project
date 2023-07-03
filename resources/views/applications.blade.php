@@ -41,6 +41,8 @@ active
                                 <th>Name</th>
                                 <th>sp_sso_url</th>
                                 <th>sp_entity_id</th>
+                                <th>signonmethod</th>
+                                <th>saml_issuer_id</th>
                                 <th>Options</th>
                             </tr>
                         </thead>
@@ -54,6 +56,8 @@ active
                                 <td>{{ $application->name }}</td>
                                 <td>{{ $application->sp_sso_url }}</td>
                                 <td>{{ $application->sp_entity_id }}</td>
+                                <td>{{ $application->signonmethod }}</td>
+                                <td>{{ $application->saml_issuer_id }}</td>
 
                                 <td>
 
