@@ -92,7 +92,7 @@ class Users extends Controller
                     'user_id' => $dataArray['id'],
                     'client_id' => $authUser->client_id
                 ));
-                $grpArray = array('group_id' => '17d99dca-1958-4ddb-b9a0-7fe393ff4cef', 'user_id' => $dataArray['id'], 'client_id' => null);
+                $grpArray = array('group_id' => '17d99dca-1958-4ddb-b9a0-7fe393ff4cef', 'user_id' => $dataArray['id'], 'client_id' => $authUser->client_id);
             }
             UserGroup::create($grpArray);
 
