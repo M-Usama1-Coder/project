@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Application;
+use App\Models\ApplicationClient;
 use App\Models\Profile;
 use App\Models\ApplicationUser;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -21,8 +23,16 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        $applications = DB::table('applications')->get();
-        return view('applications', ['applications' => $applications]);
+        $user = Auth::user();
+        $currentGroup = !empty($user->group) ? $user->group->group->name : null;
+        if ($currentGroup == 'Administrator') {
+            $applications = DB::table('applications')->get();
+            return view('applications', ['applications' => $applications]);
+        } else {
+            $client_id = $user->client_id;
+            $applications = ApplicationClient::where('client_id', $client_id)->get();
+            return view('organization.applications-organization', ['applications' => $applications]);
+        }
     }
 
     /**
@@ -74,7 +84,7 @@ class ApplicationController extends Controller
     {
         $application = Application::where('id', $id)->first();
         $userApps = ApplicationUser::where('application_id', $application->id)->get();
-        return view('show.applicationview', ['application' => $application,'userApps'=>$userApps]);
+        return view('show.applicationview', ['application' => $application, 'userApps' => $userApps]);
     }
 
     /**

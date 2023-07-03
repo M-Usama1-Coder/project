@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -24,6 +25,15 @@ class AuthController extends Controller
         }
         if ($request->method() == 'POST') {
             $credentials = $request->only('email', 'password');
+            $user = User::where('email', $request->email)->first();
+            $currentGroup = !empty($user->group) ? $user->group->group->name : null;
+            if (empty($user->client_id)) {
+                if ($currentGroup != 'Administrator') {
+                    Session::flash('message', 'You are not Authorized!');
+                    Session::flash('alert-class', 'alert-danger');
+                    return redirect('login');
+                }
+            }
             if (Auth::attempt($credentials)) {
                 return redirect()->intended('/');
             } else {

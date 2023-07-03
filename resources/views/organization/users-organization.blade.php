@@ -42,15 +42,14 @@
                                     <th>Status</th>
                                     <th>Membership</th>
                                     <th>Email</th>
-                                    <th>Role</th>
                                     <th>Options</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @if (!empty($users))
-                                    @foreach ($users as $key => $user)
+                                    @foreach ($users as $key => $currentUser)
                                         @php
-                                            $currentGroup = !empty($user->group) ? $user->group->group->name : null;
+                                            $user = $currentUser->user;
                                         @endphp
                                         <tr id="row_{{ $user->id }}">
                                             <td>{{ $key + 1 }}</td>
@@ -59,9 +58,7 @@
                                             <td>{{ $user->status }}</td>
                                             <td>{{ $user->membership }}</td>
                                             <td>{{ $user->email }}</td>
-                                            <td>{{ $currentGroup }}</td>
                                             <td>
-
                                                 <div class="btn-group">
                                                     <button class="btn btn-primary btn-sm dropdown-toggle" type="button"
                                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -75,15 +72,11 @@
                                                         <a class="dropdown-item"
                                                             href="{{ url('users/edit/' . $user->id) }}"><i
                                                                 data-feather="edit" width="20"></i> Edit</a>
-                                                        @if ($user->id != Auth::user()->id && $currentGroup != 'Administrator')
-                                                            <button class="dropdown-item"
-                                                                onclick="delete_user('{{ $user->id }}')"><i
-                                                                    data-feather="trash" width="20"></i> Delete</button>
-                                                        @endif
-
+                                                        <button class="dropdown-item"
+                                                            onclick="delete_user('{{ $user->id }}')"><i
+                                                                data-feather="trash" width="20"></i> Delete</button>
                                                     </div>
                                                 </div>
-
                                             </td>
                                         </tr>
                                     @endforeach

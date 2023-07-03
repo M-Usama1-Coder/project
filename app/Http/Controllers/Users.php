@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ApplicationUserResource;
 use App\Models\Application;
+use App\Models\ApplicationClient;
 use App\Models\ApplicationUser;
+use App\Models\ClientUser;
 use App\Models\Group;
 use App\Models\User;
 use App\Models\Profile;
 use App\Models\UserGroup;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
@@ -24,10 +27,16 @@ class Users extends Controller
      */
     public function index()
     {
-        $users = DB::table('users')
-            ->select('*')
-            ->get();
-        return view('users', ['users' => $users]);
+        $user = Auth::user();
+        $currentGroup = !empty($user->group) ? $user->group->group->name : null;
+        if ($currentGroup == 'Administrator') {
+            $users = User::all();
+            return view('users', ['users' => $users]);
+        } else {
+            $client_id = $user->client_id;
+            $users = ClientUser::where('client_id', $client_id)->get();
+            return view('organization.users-organization', ['users' => $users]);
+        }
     }
 
     /**
@@ -37,9 +46,15 @@ class Users extends Controller
      */
     public function create()
     {
-        $groups = DB::table('groups')
-            ->get();
-        return view('forms.adduser', ['groups' => $groups]);
+        $user = Auth::user();
+        $currentGroup = !empty($user->group) ? $user->group->group->name : null;
+        if ($currentGroup == 'Administrator') {
+            $groups = DB::table('groups')
+                ->get();
+            return view('forms.adduser', ['groups' => $groups]);
+        } else {
+            return view('forms.adduser');
+        }
     }
 
     /**
@@ -51,6 +66,8 @@ class Users extends Controller
     public function store(Request $request)
     {
         //
+        $authUser = Auth::user();
+        $currentGroup = !empty($authUser->group) ? $authUser->group->group->name : null;
 
         if ($request->method() == 'POST') {
             $user = $request->validate([
@@ -60,19 +77,27 @@ class Users extends Controller
                 'password' => 'required|string|min:6',
             ]);
 
-            $newUser = User::create([
+            $dataArray = [
                 'id' => md5($user['email']),
                 'first_name' => $user['first_name'],
                 'last_name' => $user['last_name'],
                 'email' => $user['email'],
                 'password' => Hash::make($user['password']),
-            ]);
-
+            ];
+            User::create($dataArray);
+            if ($currentGroup == 'Administrator') {
+                $grpArray = array('group_id' => $request->group, 'user_id' => $dataArray['id'], 'client_id' => null);
+            } else {
+                ClientUser::create(array(
+                    'user_id' => $dataArray['id'],
+                    'client_id' => $authUser->client_id
+                ));
+                $grpArray = array('group_id' => '17d99dca-1958-4ddb-b9a0-7fe393ff4cef', 'user_id' => $dataArray['id'], 'client_id' => null);
+            }
+            UserGroup::create($grpArray);
 
             Session::flash('message', 'User ' . $user['first_name'] . ' Successfully Created!!!');
             Session::flash('alert-class', 'alert-success');
-
-
 
             return redirect('users');
         }
@@ -106,13 +131,21 @@ class Users extends Controller
      */
     public function show($id)
     {
+        $authUser = Auth::user();
+        $currentGroup = !empty($authUser->group) ? $authUser->group->group->name : null;
         // $user = User::where('id', $id)->first();
         $user = DB::table('users')
             ->where('id', '=', $id)
             ->first();
-        $applications = DB::table('applications')->get();
-        $userApps = ApplicationUser::where('user_id', $user->id)->get();
-        return view('show.userview', ['user' => $user, 'applications' => $applications, 'userApps' => $userApps]);
+        if ($currentGroup == 'Administrator') {
+            $applications = DB::table('applications')->get();
+            $userApps = ApplicationUser::where('user_id', $user->id)->get();
+            return view('show.userview', ['user' => $user, 'applications' => $applications, 'userApps' => $userApps]);
+        } else {
+            $clientApps = ApplicationClient::where('client_id', $authUser->client_id)->get();
+            $userApps = ApplicationUser::where('user_id', $user->id)->get();
+            return view('organization.show.userview-organization', ['user' => $user, 'clientApps' => $clientApps, 'userApps' => $userApps]);
+        }
     }
 
     /**
@@ -189,7 +222,7 @@ class Users extends Controller
                     $usergroup->group_id = $request->group;
                     $usergroup->save();
                 } else {
-                    $grpArray = array('group_id' => $request->group, 'user_id' => $id, 'client_id' => 1);
+                    $grpArray = array('group_id' => $request->group, 'user_id' => $id, 'client_id' => null);
                     UserGroup::insert($grpArray);
                 }
             }
@@ -209,10 +242,15 @@ class Users extends Controller
      */
     public function delete(Request $request)
     {
+        $authUser = Auth::user();
+        $currentGroup = !empty($authUser->group) ? $authUser->group->group->name : null;
         if ($request->method() == 'POST') {
-            $res = DB::table('users')
-                ->where('id', '=', $request->id)
-                ->delete();
+            if ($currentGroup == 'Administrator') {
+                $res = User::where('id', $request->id)
+                    ->delete();
+            } else {
+                $res = ClientUser::where('user_id', $request->id)->where('client_id', $authUser->client_id)->delete();
+            }
 
             echo $res;
         }

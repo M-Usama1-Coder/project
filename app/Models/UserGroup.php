@@ -10,6 +10,8 @@ class UserGroup extends Model
     use HasFactory;
     protected $table = 'group_users';
 
+    protected $fillable = ['group_id', 'user_id', 'client_id'];
+
     public function group()
     {
         return $this->belongsTo(Group::class, 'group_id');

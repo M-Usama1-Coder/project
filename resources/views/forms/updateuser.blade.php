@@ -44,7 +44,7 @@
                                                 id="first_name" class="form-control" placeholder="First Name" required />
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="name">First Name</label>
+                                            <label for="name">Last Name</label>
                                             <input value="{{ $user->last_name }}" type="text" name="last_name"
                                                 id="last_name" class="form-control" placeholder="Last Name" required />
                                         </div>
@@ -75,16 +75,22 @@
                                     <input type="password" class="form-control" name="password" id="password"
                                         placeholder="Password">
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label for="group">Group</label>
-                                    <select name="group" id="group" class="form-control" required>
-                                        @if (!empty($groups))
-                                            @foreach ($groups as $group)
-                                                <option value="{{$group->id}}">{{$group->name}}</option>
-                                            @endforeach
-                                        @endif
-                                    </select>
-                                </div>
+                                @php
+                                    $user = Auth::user();
+                                    $currentGroup = !empty($user->group) ? $user->group->group->name : null;
+                                @endphp
+                                @if ($currentGroup == 'Administrator')
+                                    <div class="form-group col-md-6">
+                                        <label for="group">Group</label>
+                                        <select name="group" id="group" class="form-control" required>
+                                            @if (!empty($groups))
+                                                @foreach ($groups as $group)
+                                                    <option value="{{ $group->id }}">{{ $group->name }}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                    </div>
+                                @endif
 
                             </div>
                             <br>

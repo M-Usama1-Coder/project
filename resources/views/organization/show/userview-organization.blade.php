@@ -44,27 +44,28 @@
                                 <Hr>
                                 <div class="form-group col-md-8 text-start">
                                     <label for="application_id">Applications</label>
-                                    <form action="{{ url('users/application') }}" method="POST" class="d-flex">
-                                        <div>
+                                    @if (!empty($clientApps))
+                                        <form action="{{ url('users/application') }}" method="POST" class="d-flex">
+                                            <div>
 
-                                            @csrf
-                                            <input type="hidden" name='user_id' value="{{ $user->id }}">
-                                            <select name="application_id" id="application_id" class="form-control p-2 "
-                                                required>
-                                                @if (!empty($applications))
-                                                    @foreach ($applications as $application)
-                                                        <option value="{{ $application->id }}">{{ $application->name }}
+                                                @csrf
+                                                <input type="hidden" name='user_id' value="{{ $user->id }}">
+                                                <select name="application_id" id="application_id" class="form-control p-2 "
+                                                    required>
+                                                    @foreach ($clientApps as $app)
+                                                        <option value="{{ $app->application->id }}">
+                                                            {{ $app->application->name }}
                                                         </option>
                                                     @endforeach
-                                                @endif
-                                            </select>
-                                        </div>
-                                        <div>
+                                                </select>
+                                            </div>
+                                            <div>
 
-                                            <button type="submit" class="btn btn-primary"
-                                                style="margin-left: 20px;">Add</button>
-                                        </div>
-                                    </form>
+                                                <button type="submit" class="btn btn-primary"
+                                                    style="margin-left: 20px;">Add</button>
+                                            </div>
+                                        </form>
+                                    @endif
                                 </div>
                                 <table class="table">
                                     <tr>

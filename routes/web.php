@@ -18,38 +18,44 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('login', [AuthController::class, 'login'])->name('login');
-Route::get('signout', [AuthController::class, 'signout']);
-
 Route::post('auth', [AuthController::class, 'authenticate']);
 
-Route::get('/', [Dashboard::class, 'index'])->middleware('auth');
-Route::get('users', [Users::class, 'index'])->middleware('auth');
-Route::get('users/create', [Users::class, 'create'])->middleware('auth');
-Route::get('users/edit/{id}', [Users::class, 'edit'])->middleware('auth');
-Route::get('users/show/{id}', [Users::class, 'show'])->middleware('auth');
+Route::middleware('auth')->group(function () {
+    Route::get('signout', [AuthController::class, 'signout']);
+    Route::get('/', function () {
+        return redirect('users');
+    });
+    // ADMIN ROUTES
+    Route::get('users', [Users::class, 'index']);
+    Route::get('users/create', [Users::class, 'create']);
+    Route::get('users/edit/{id}', [Users::class, 'edit']);
+    Route::get('users/show/{id}', [Users::class, 'show']);
 
-Route::post('users/store', [Users::class, 'store'])->middleware('auth');
-Route::post('users/application', [Users::class, 'application'])->middleware('auth');
-Route::post('users/application/delete', [Users::class, 'applicationDelete'])->middleware('auth');
-Route::post('users/delete', [Users::class, 'delete'])->middleware('auth');
-Route::post('users/update/{id}', [Users::class, 'update'])->middleware('auth');
+    Route::post('users/store', [Users::class, 'store']);
+    Route::post('users/application', [Users::class, 'application']);
+    Route::post('users/application/delete', [Users::class, 'applicationDelete']);
+    Route::post('users/delete', [Users::class, 'delete']);
+    Route::post('users/update/{id}', [Users::class, 'update']);
 
 
-Route::get('applications', [ApplicationController::class, 'index'])->middleware('auth');
-Route::post('applications/delete', [ApplicationController::class, 'delete'])->middleware('auth');
-Route::get('applications/create', [ApplicationController::class, 'create'])->middleware('auth');
-Route::post('applications/store', [ApplicationController::class, 'store'])->middleware('auth');
-Route::get('applications/edit/{id}', [ApplicationController::class, 'edit'])->middleware('auth');
-Route::post('applications/update/{id}', [ApplicationController::class, 'update'])->middleware('auth');
-Route::get('applications/show/{id}', [ApplicationController::class, 'show'])->middleware('auth');
+    Route::get('applications', [ApplicationController::class, 'index']);
+    Route::post('applications/delete', [ApplicationController::class, 'delete'])->middleware('admin');
+    Route::get('applications/create', [ApplicationController::class, 'create'])->middleware('admin');
+    Route::post('applications/store', [ApplicationController::class, 'store'])->middleware('admin');
+    Route::get('applications/edit/{id}', [ApplicationController::class, 'edit'])->middleware('admin');
+    Route::post('applications/update/{id}', [ApplicationController::class, 'update'])->middleware('admin');
+    Route::get('applications/show/{id}', [ApplicationController::class, 'show'])->middleware('admin');
 
-Route::get('clients', [ClientsController::class, 'index'])->middleware('auth');
-Route::post('clients/store', [ClientsController::class, 'store'])->middleware('auth');
-Route::get('clients/create', [ClientsController::class, 'create'])->middleware('auth');
-Route::post('clients/delete', [ClientsController::class, 'delete'])->middleware('auth');
-Route::get('clients/edit/{id}', [ClientsController::class, 'edit'])->middleware('auth');
-Route::post('clients/update/{id}', [ClientsController::class, 'update'])->middleware('auth');
-Route::get('clients/show/{id}', [ClientsController::class, 'show'])->middleware('auth');
-Route::post('client/user', [ClientsController::class, 'clientuser'])->middleware('auth');
+    Route::get('clients', [ClientsController::class, 'index'])->middleware('admin');
+    Route::post('clients/store', [ClientsController::class, 'store'])->middleware('admin');
+    Route::get('clients/create', [ClientsController::class, 'create'])->middleware('admin');
+    Route::post('clients/delete', [ClientsController::class, 'delete'])->middleware('admin');
+    Route::get('clients/edit/{id}', [ClientsController::class, 'edit'])->middleware('admin');
+    Route::post('clients/update/{id}', [ClientsController::class, 'update'])->middleware('admin');
+    Route::get('clients/show/{id}', [ClientsController::class, 'show'])->middleware('admin');
+    Route::post('client/user', [ClientsController::class, 'clientuser'])->middleware('admin');
+    Route::post('client/application', [ClientsController::class, 'application'])->middleware('admin');
 
-Route::post('client/delete', [ClientsController::class, 'clientuserDelete'])->middleware('auth');
+    Route::post('client/operator', [ClientsController::class, 'clientuserOperator'])->middleware('admin');
+    Route::post('client/userApp/delete', [ClientsController::class, 'clientUserAppDelete'])->middleware('admin');
+});
