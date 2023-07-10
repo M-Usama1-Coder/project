@@ -167,6 +167,9 @@ class ClientsController extends Controller
                 'domain' => 'required|string|max:255',
             ]);
 
+            $client['subscription'] = $request->subscription ? 1 : 0;
+
+
 
 
             // if (!empty($client['photo'])) {

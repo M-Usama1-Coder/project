@@ -39,15 +39,23 @@
                                 <div class="col-md-12" style="padding-top: 30px">
                                     <div class="row">
                                         <div class="form-group col-md-6">
-                                            <label for="name">Name</label>
                                             <input value="{{ $client->name }}" type="text" name="name"
                                                 id="name" class="form-control" placeholder="Name" required />
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="name">Sub_domain</label>
                                             <input value="{{ $client->domain }}" type="text" name="domain"
                                                 id="domain" class="form-control" placeholder="Domain" required />
                                         </div>
+                                        <div class="form-group col-md-6">
+                                            <input name="subscription" id="subscription" type="checkbox" {{$client->subscription?'checked':''}}/>
+                                            <label for="subscription">Subscription</label>
+                                            
+                                            {{-- <select name="subscription" id="subscription" class="form-control" required>
+                                                        <option value="">{{ $client->subscription }}</option>
+                                                        <option value="False">0</option>
+                                            </select> --}}
+                                        </div>
+    
                                     </div>
                                     {{-- <div class="row" style="margin-top:10px">
                                         <div class="form-group col-md-6">

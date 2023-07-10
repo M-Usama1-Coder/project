@@ -52,7 +52,11 @@ active
                                 <td>{{ $key + 1 }}</td>
 
                                 <td>{{ $client->name }}</td>
-                                <td>True</td>
+                                @if($client->subscription == '0')
+                                    <td>False</td>
+                                @elseif($client->subscription == '1')
+                                    <td>True</td>
+                                @endif
                                 <td>{{ $client->domain }}</td>
                                 <td>
 

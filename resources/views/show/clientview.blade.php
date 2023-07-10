@@ -53,7 +53,7 @@
                                             @endif
 
                                         </select>
-                                        <button type="submit" class="btn btn-primary ml-3">Add</button>
+                                        <button type="submit" class="btn btn-primary" style="margin-left: 20px">Add</button>
                                     </form>
                                 </div>
 
@@ -126,7 +126,7 @@
                                                 @endforeach
                                             @endif
                                         </select>
-                                        <button type="submit" class="btn btn-primary ml-3">Add</button>
+                                        <button type="submit" class="btn btn-primary" style="margin-left: 20px">Add</button>
                                     </form>
                                 </div>
 

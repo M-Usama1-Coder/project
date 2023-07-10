@@ -29,15 +29,15 @@
                                 <table>
                                     <tr>
                                         <th>First_Name</th>
-                                        <td>: {{ $user->first_name }}</td>
+                                        <td>{{ $user->first_name }}</td>
                                     </tr>
                                     <tr>
                                         <th>last_name</th>
-                                        <td>: {{ $user->last_name }}</td>
+                                        <td>{{ $user->last_name }}</td>
                                     </tr>
                                     <tr>
                                         <th>Email</th>
-                                        <td>: {{ $user->email }}</td>
+                                        <td> {{ $user->email }}</td>
                                     </tr>
 
                                 </table>
