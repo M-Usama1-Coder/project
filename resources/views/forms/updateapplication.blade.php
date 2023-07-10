@@ -7,7 +7,7 @@
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Users</h1>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{url('/') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="{{ url('applications') }}">Application</a></li>
                 <li class="breadcrumb-item">Update User</li>
             </ol>
@@ -31,27 +31,37 @@
                                 @endforeach
                             </div>
                         @endif
-                        <form id="updateapplication" action="{{ url('applications/update/'.$application->id) }}" method="POST" enctype="multipart/form-data">
+                        <form enctype="multipart/form-data" id="updateapplication"
+                            action="{{ url('applications/update/' . $application->id) }}" method="POST"
+                            enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="row" style="margin-top: 20px">
-                                
+
                                 <div class="col-md-9" style="padding-top: 30px">
                                     <div class="row">
                                         <div class="form-group col-md-12">
-                                            <input value="{{ $application->name }}" type="text" name="name" id="name"
-                                                class="form-control" placeholder="name" required />
+                                            <input value="{{ $application->name }}" type="text" name="name"
+                                                id="name" class="form-control" placeholder="name" required />
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-12">
-                                            <input value="{{ $application->sp_sso_url }}" type="text" name="sp_sso_url" id="sp_sso_url"
-                                                class="form-control" placeholder="Sp_sso_url" required />
+                                            <input value="{{ $application->sp_sso_url }}" type="text" name="sp_sso_url"
+                                                id="sp_sso_url" class="form-control" placeholder="Sp_sso_url" required />
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-12">
-                                            <input value="{{ $application->sp_entity_id }}" type="text" name="sp_entity_id" id="sp_entity_id"
-                                                class="form-control" placeholder="sp_entity_id" required />
+                                            <input value="{{ $application->sp_entity_id }}" type="text"
+                                                name="sp_entity_id" id="sp_entity_id" class="form-control"
+                                                placeholder="sp_entity_id" required />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12 text-left">
+                                            <label>Application Icon</label>
+                                            <input type="file" name="icon" id="icon" class="form-control"
+                                                placeholder="Icon" accept="image/png, image/gif, image/jpeg" />
                                         </div>
                                     </div>
                                 </div>

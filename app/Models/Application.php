@@ -9,7 +9,7 @@ class Application extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id', 'name', 'sp_sso_url', 'sp_entity_id', 'certificate_key', 'certificate'];
+    protected $fillable = ['id', 'name', 'sp_sso_url', 'sp_entity_id', 'certificate_key', 'certificate', 'icon'];
 
     protected $casts = [
         'id' => 'string'

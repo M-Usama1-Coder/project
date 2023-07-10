@@ -61,9 +61,25 @@ class ApplicationController extends Controller
                 'sp_sso_url' => 'string',
                 'sp_entity_id' => 'required|string',
                 'certificate_key' => 'string|nullable',
-                'certificate' => 'string|nullable'
+                'certificate' => 'string|nullable',
+                'icon' => 'mimes:jpeg,jpg,png,gif|nullable'
             ]);
             $application['id'] = md5($application['sp_entity_id']);
+
+            // PhotoStorage
+            if (!empty($request->icon)) {
+                try {
+                    $icon = $request->file('icon');
+                    $filename = time() . '.' . $icon->getClientOriginalExtension();
+                    $path = $request->icon->storeAs('icons', $filename);
+                    $application['icon'] =   url('storage/' . $path);
+                } catch (\Throwable $th) {
+                    return response()->json([
+                        'status' => false,
+                        'message' => $th->getMessage()
+                    ], 500);
+                }
+            }
 
             Application::create($application);
 
@@ -113,15 +129,25 @@ class ApplicationController extends Controller
                 'name' => 'required|string|max:255',
                 'sp_sso_url' => 'required|string|max:255',
                 'sp_entity_id' => 'required|string',
+                'icon' => 'mimes:jpeg,jpg,png,gif|nullable'
             ]);
 
+            // PhotoStorage
+            if (!empty($request->icon)) {
+                try {
+                    $icon = $request->file('icon');
+                    $filename = time() . '.' . $icon->getClientOriginalExtension();
+                    $path = $request->icon->storeAs('icons', $filename);
+                    $application['icon'] =   url('storage/' . $path);
+                } catch (\Throwable $th) {
+                    return response()->json([
+                        'status' => false,
+                        'message' => $th->getMessage()
+                    ], 500);
+                }
+            }
 
 
-            // if (!empty($application['photo'])) {
-            //     $profile['photo'] = $application['photo'];
-            // }
-
-            //end of setting
             $reqApplication->update($application);
 
 

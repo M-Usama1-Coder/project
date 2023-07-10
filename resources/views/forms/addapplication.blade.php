@@ -31,10 +31,11 @@
                                 @endforeach
                             </div>
                         @endif
-                        <form id="addapplication" action="{{ url('applications/store') }}" method="POST" enctype="multipart/form-data">
+                        <form id="addapplication" action="{{ url('applications/store') }}" method="POST"
+                            enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="row" style="margin-top: 20px">
-                                
+
                                 <div class="col-md-9" style="padding-top: 30px">
                                     <div class="row">
                                         <div class="form-group col-md-6">
@@ -54,22 +55,29 @@
                                                 placeholder="signonmethod" required />
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <input type="text" name="saml_issuer_id" id="saml_issuer_id" class="form-control"
-                                                placeholder="saml_issuer_id" required />
+                                            <input type="text" name="saml_issuer_id" id="saml_issuer_id"
+                                                class="form-control" placeholder="saml_issuer_id" required />
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <textarea type="text" name="certificate_key" id="certificate_key" class="form-control"
-                                                placeholder="certificate_key" required ></textarea>
+                                            <textarea type="text" name="certificate_key" id="certificate_key" class="form-control" placeholder="certificate_key"
+                                                required></textarea>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <input type="text" name="certificate" id="certificate" class="form-control"
                                                 placeholder="Certificate" required />
                                         </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-12 text-left">
+                                                <label>Application Icon</label>
+                                                <input type="file" name="icon" id="icon" class="form-control"
+                                                    placeholder="Icon" accept="image/png, image/gif, image/jpeg" />
+                                            </div>
+                                        </div>
                                     </div>
-                                  
+
                                 </div>
                             </div>
-                            
+
                             <br>
                             <div class="row">
                                 <div class="col">
