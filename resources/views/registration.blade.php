@@ -133,7 +133,7 @@
 
                             <div class="title">
                                 <img style="max-height:100px" src="{{asset('assets/logo.webp')}}">
-                                <h1 class="titlepageheading">Login</h1>
+                                <h1 class="titlepageheading">REGISTER</h1>
                             </div>
                             <div class="login-form">
                                 @if (Session::has('message'))
@@ -141,16 +141,36 @@
                                         {{ Session::get('message') }}
                                     </div>
                                 @endif
-                                <form class="user" method="post" action="{{ url('auth') }}">
+                                <form class="user"  method="post" action="{{ url('register') }}">
                                     @csrf
-                                    <div class="form-group">
-                                        <input type="email" class="form-control" id="email"
+                                    <div style="">
+
+                                        <div class="form-group" style="margin: 5px">
+                                            <input type="text" class="form-control" id="first_name" name="first_name"
+                                            placeholder="first_name" required>
+                                        </div>
+                                        <div class="form-group" style="margin: 5px">
+                                            <input type="text" class="form-control" id="last_name" name="last_name"
+                                            placeholder="last_name" required>
+                                        </div>
+                                        <div class="form-group" style="margin: 5px">
+                                            <input type="email" class="form-control" id="email"
                                             aria-describedby="emailHelp" placeholder="Enter Email Address"
                                             name="email" required autofocus>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control" id="password" name="password"
+                                        </div>
+                                        <div class="form-group" style="margin: 5px">
+                                            <input type="password" class="form-control" id="password" name="password"
                                             placeholder="Password" required>
+                                        </div>
+                                        <div class="form-group" style="margin: 5px">
+                                            <input type="text" class="form-control" id="name" name="name"
+                                            placeholder="Organization_name" required>
+                                        </div>
+                                        <div class="form-group" style="margin: 5px">
+                                            <input type="text" class="form-control" id="domain" name="domain"
+                                            placeholder="Sub_domain" required>
+                                        </div>
+                                        
                                     </div>
                                     {{-- <div class="form-group">
                                             <div class="custom-control custom-checkbox small"
@@ -161,10 +181,10 @@
                                             </div>
                                         </div> --}}
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-block btn-primary">Login</button>
+                                        <button type="submit" class="btn btn-block btn-primary">Register</button>
                                     </div>
                                     <hr>
-                                    <a href="/signup">REGISTER</a>
+                                    <a href="/login">Login</a>
                                 </form>
                             </div>
 
@@ -203,62 +223,3 @@
     <script src="https://idm.rcal.me/backend/js/app.js"></script>
     <!-- Page Level Scripts -->
 </body>
-{{-- <body class="bg-gradient-login">
-    <!-- Login Content -->
-    <div class="container-login">
-        <div class="row justify-content-center">
-            <div class="col-xl-6 col-lg-12 col-md-9">
-                <div class="card shadow-sm" style="margin: 60px">
-                    <div class="card-body p-0">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="login-form">
-                                    <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Login</h1>
-                                    </div>
-                                    @if (Session::has('message'))
-                                        <div class="alert {{ Session::get('alert-class', 'alert-info') }}">
-                                            {{ Session::get('message') }}
-                                        </div>
-                                    @endif
-                                    <form class="user" method="post" action="{{ url('auth') }}">
-                                        @csrf
-                                        <div class="form-group">
-                                            <input type="email" class="form-control" id="email"
-                                                aria-describedby="emailHelp" placeholder="Enter Email Address"
-                                                name="email" required autofocus>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="password" class="form-control" id="password" name="password"
-                                                placeholder="Password" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="custom-control custom-checkbox small"
-                                                style="line-height: 1.5rem;">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember
-                                                    Me</label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-block btn-primary">Login</button>
-                                        </div>
-                                        <hr>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</body>
-<!-- Login Content -->
-<script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
-<script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('assets/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-<script src="{{ asset('assets/js/ruang-admin.min.js') }}"></script>
-
-</html> --}}

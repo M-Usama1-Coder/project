@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
+use App\Models\ClientUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
@@ -47,6 +50,52 @@ class AuthController extends Controller
     public function signout()
     {
         Auth::logout();
+        return redirect('login');
+    }
+
+    public function signup()
+    {
+        if (Auth::check()) {
+            return redirect('/');
+        }
+        return view('registration');
+    }
+
+    public function register(Request $request)
+    {
+        if (Auth::check()) {
+            return redirect('/');
+        }
+
+        $client = $request->validate([
+            'name' => 'required|string|max:255',
+            'domain' => 'required|string|max:255',
+        ]);
+        $client['id'] = md5($client['name']);
+        $dbCLient = Client::create($client);
+
+        $user = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:191|unique:users',
+            'password' => 'required|string|min:6',
+        ]);
+
+        $dataArray = [
+            'id' => md5($user['email']),
+            'first_name' => $user['first_name'],
+            'last_name' => $user['last_name'],
+            'email' => $user['email'],
+            'password' => Hash::make($user['password']),
+            'client_id' => md5($client['name'])
+        ];
+        $user = User::create($dataArray);
+
+        ClientUser::create(array(
+            'client_id' => md5($client['name']),
+            'user_id' => md5($user['email']),
+        ));
+
         return redirect('login');
     }
 }
