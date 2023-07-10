@@ -39,12 +39,10 @@
                                 <div class="col-md-12" style="padding-top: 30px">
                                     <div class="row">
                                         <div class="form-group col-md-6">
-                                            <label for="name">First Name</label>
                                             <input value="{{ $user->first_name }}" type="text" name="first_name"
                                                 id="first_name" class="form-control" placeholder="First Name" required />
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="name">Last Name</label>
                                             <input value="{{ $user->last_name }}" type="text" name="last_name"
                                                 id="last_name" class="form-control" placeholder="Last Name" required />
                                         </div>
@@ -71,7 +69,6 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-6">
-                                    <label for="password">Password</label>
                                     <input type="password" class="form-control" name="password" id="password"
                                         placeholder="Password">
                                 </div>
@@ -81,7 +78,6 @@
                                 @endphp
                                 @if ($currentGroup == 'Administrator')
                                     <div class="form-group col-md-6">
-                                        <label for="group">Group</label>
                                         <select name="group" id="group" class="form-control" required>
                                             @if (!empty($groups))
                                                 @foreach ($groups as $group)

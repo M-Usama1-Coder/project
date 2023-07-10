@@ -2,6 +2,10 @@
 @section('applications')
     active
 @endsection
+@php
+    $authUser = Auth::user();
+    $currentGroup = !empty($authUser->group) ? $authUser->group->group->name : null;
+@endphp
 @section('content')
     <div class="container-fluid" id="container-wrapper">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -9,7 +13,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="{{ url('applications') }}">Applications</a></li>
-                <li class="breadcrumb-item">{{ $application->name }}</li>   
+                <li class="breadcrumb-item">{{ $application->name }}</li>
             </ol>
         </div>
 
@@ -35,46 +39,54 @@
                                         <th>Sp_sso_url</th>
                                         <td>: {{ $application->sp_sso_url }}</td>
                                     </tr>
-                                    <tr>
-                                        <th>Sp_entity_id</th>
-                                        <td>: {{ $application->sp_entity_id }}</td>
-                                    </tr>              
-                                    <tr>
-                                        <th>certificate_key : </th>
-                                        <td><hr><textarea class="form-control" readonly> {{ $application->certificate_key}}</textarea></td>
-                                    </tr>                                    
-                                    <tr>
-                                        <th>certificate : </th>
-                                        <td><hr><textarea class="form-control" readonly> {{ $application->certificate }}</textarea></td>
-                                    </tr>                                    
+                                    @if ($currentGroup == 'Administrator')
+                                        <tr>
+                                            <th>Sp_entity_id</th>
+                                            <td>: {{ $application->sp_entity_id }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>certificate_key : </th>
+                                            <td>
+                                                <hr>
+                                                <textarea class="form-control" readonly> {{ $application->certificate_key }}</textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>certificate : </th>
+                                            <td>
+                                                <hr>
+                                                <textarea class="form-control" readonly> {{ $application->certificate }}</textarea>
+                                            </td>
+                                        </tr>
+                                    @endif
+
                                 </table>
-                            <br/>
+                                <br />
                                 <table class="table">
                                     <tr>
                                         <th>User</th>
                                         <th>Remove Permission</th>
                                     </tr>
                                     @foreach ($userApps as $app)
-                                    @if (!$app->user)
-                                        @continue
-                                    @endif
-                                    <tr>
-                                        <td>{{ $app->user->first_name }}</td>
-                                        <td>
-                                            <form action="{{ url('users/application/delete') }}" method="POST">
-                                                @csrf
-                                                <input type="hidden" name='user_id' value="{{ $app->user->id }}">
+                                        @if (!$app->user)
+                                            @continue
+                                        @endif
+                                        <tr>
+                                            <td>{{ $app->user->first_name }}</td>
+                                            <td>
+                                                <form action="{{ url('users/application/delete') }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name='user_id' value="{{ $app->user->id }}">
 
-                                                <input type="hidden" name='application_id'
-                                                    value="{{ $app->application->id }}">
-                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                                    <input type="hidden" name='application_id'
+                                                        value="{{ $app->application->id }}">
+                                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </table>
-                                
-                            </div>
+
                             </div>
                         </div>
                     </div>
@@ -82,7 +94,7 @@
             </div>
         </div>
     </div>
-
+    </div>
 @endsection
 @section('css')
 @endsection

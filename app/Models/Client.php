@@ -9,7 +9,7 @@ class Client extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id', 'name', 'domain'];
+    protected $fillable = ['id', 'name', 'domain','subscription'];
 
     protected $casts = [
         'id' => 'string'

@@ -38,15 +38,15 @@
                                 <div class="col-md-9" style="padding-top: 30px">
                                     <div class="row">
                                         <div class="form-group col-md-6">
-                                            <label for="name">Name</label>
                                             <input type="text" name="name" id="name" class="form-control"
                                                 placeholder="Name" required />
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="domain">Sub_domain</label>
                                             <input type="text" name="domain" id="domain" class="form-control"
                                                 placeholder="domain" required />
                                         </div>
+                                         
+                                           
                                      
                                     </div>
                                   

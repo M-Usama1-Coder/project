@@ -18,7 +18,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('login', [AuthController::class, 'login'])->name('login');
+Route::get('signup', [AuthController::class, 'signup'])->name('signup');
+Route::post('register', [AuthController::class, 'register']);
 Route::post('auth', [AuthController::class, 'authenticate']);
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('signout', [AuthController::class, 'signout']);
@@ -44,7 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::post('applications/store', [ApplicationController::class, 'store'])->middleware('admin');
     Route::get('applications/edit/{id}', [ApplicationController::class, 'edit'])->middleware('admin');
     Route::post('applications/update/{id}', [ApplicationController::class, 'update'])->middleware('admin');
-    Route::get('applications/show/{id}', [ApplicationController::class, 'show'])->middleware('admin');
+    Route::get('applications/show/{id}', [ApplicationController::class, 'show']);
 
     Route::get('clients', [ClientsController::class, 'index'])->middleware('admin');
     Route::post('clients/store', [ClientsController::class, 'store'])->middleware('admin');
