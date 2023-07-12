@@ -15,6 +15,9 @@ class AuthController extends Controller
     //
     public function redirection($path = null)
     {
+        if (!Auth::check()) {
+            return redirect('login');
+        }
         $user = auth()->user();
         $currentGroup = !empty($user->group) ? $user->group->group->name : null;
         if ($currentGroup == 'Administrator') {
