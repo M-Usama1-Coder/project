@@ -37,6 +37,12 @@ class AuthController extends Controller
                     return redirect('login');
                 }
             }
+            $client = Client::where('id', $user->client_id)->first();
+            if (!$client->subscription) {
+                Session::flash('message', 'You are not subscribe!');
+                Session::flash('alert-class', 'alert-danger');
+                return redirect('login');
+            }
             if (Auth::attempt($credentials)) {
                 return redirect()->intended('/');
             } else {
