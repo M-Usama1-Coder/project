@@ -86,7 +86,7 @@ class ApplicationController extends Controller
             Session::flash('message', 'Application ' . $application['name'] . ' Successfully Created!!!');
             Session::flash('alert-class', 'alert-success');
 
-            return redirect('applications');
+            return redirect($path.'/applications');
         }
     }
 
@@ -154,7 +154,7 @@ class ApplicationController extends Controller
             Session::flash('message', 'Application ' . $application['name'] . ' Successfully Updated!!!');
             Session::flash('alert-class', 'alert-success');
 
-            return redirect('applications');
+            return redirect($path.'/applications');
         }
     }
 

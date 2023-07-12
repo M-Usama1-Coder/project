@@ -63,7 +63,7 @@ class ClientsController extends Controller
 
 
 
-            return redirect('clients');
+            return redirect($path.'/clients');
         }
     }
 
@@ -183,7 +183,7 @@ class ClientsController extends Controller
             Session::flash('message',  $client['name'] . ' Successfully Updated!!!');
             Session::flash('alert-class', 'alert-success');
 
-            return redirect('clients');
+            return redirect($path.'/clients');
         }
     }
 
