@@ -74,7 +74,7 @@ class AuthController extends Controller
     public function signout($path)
     {
         Auth::logout();
-        return redirect($path . '/login');
+        return redirect('/login');
     }
 
     public function signup()
