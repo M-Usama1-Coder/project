@@ -44,23 +44,23 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('{path}/applications', [ApplicationController::class, 'index']);
-    Route::post('{path}/applications/delete', [ApplicationController::class, 'delete'])->middleware('admin');
-    Route::get('{path}/applications/create', [ApplicationController::class, 'create'])->middleware('admin');
-    Route::post('{path}/applications/store', [ApplicationController::class, 'store'])->middleware('admin');
-    Route::get('{path}/applications/edit/{id}', [ApplicationController::class, 'edit'])->middleware('admin');
-    Route::post('{path}/applications/update/{id}', [ApplicationController::class, 'update'])->middleware('admin');
+    Route::post('{path}/applications/delete', [ApplicationController::class, 'delete'])->middleware(['admin','subdomain']);
+    Route::get('{path}/applications/create', [ApplicationController::class, 'create'])->middleware(['admin','subdomain']);
+    Route::post('{path}/applications/store', [ApplicationController::class, 'store'])->middleware(['admin','subdomain']);
+    Route::get('{path}/applications/edit/{id}', [ApplicationController::class, 'edit'])->middleware(['admin','subdomain']);
+    Route::post('{path}/applications/update/{id}', [ApplicationController::class, 'update'])->middleware(['admin','subdomain']);
     Route::get('{path}/applications/show/{id}', [ApplicationController::class, 'show']);
 
-    Route::get('{path}/clients', [ClientsController::class, 'index'])->middleware('admin');
-    Route::post('{path}/clients/store', [ClientsController::class, 'store'])->middleware('admin');
-    Route::get('{path}/clients/create', [ClientsController::class, 'create'])->middleware('admin');
-    Route::post('{path}/clients/delete', [ClientsController::class, 'delete'])->middleware('admin');
-    Route::get('{path}/clients/edit/{id}', [ClientsController::class, 'edit'])->middleware('admin');
-    Route::post('{path}/clients/update/{id}', [ClientsController::class, 'update'])->middleware('admin');
-    Route::get('{path}/clients/show/{id}', [ClientsController::class, 'show'])->middleware('admin');
-    Route::post('{path}/client/user', [ClientsController::class, 'clientuser'])->middleware('admin');
-    Route::post('{path}/client/application', [ClientsController::class, 'application'])->middleware('admin');
+    Route::get('{path}/clients', [ClientsController::class, 'index'])->middleware(['admin','subdomain']);
+    Route::post('{path}/clients/store', [ClientsController::class, 'store'])->middleware(['admin','subdomain']);
+    Route::get('{path}/clients/create', [ClientsController::class, 'create'])->middleware(['admin','subdomain']);
+    Route::post('{path}/clients/delete', [ClientsController::class, 'delete'])->middleware(['admin','subdomain']);
+    Route::get('{path}/clients/edit/{id}', [ClientsController::class, 'edit'])->middleware(['admin','subdomain']);
+    Route::post('{path}/clients/update/{id}', [ClientsController::class, 'update'])->middleware(['admin','subdomain']);
+    Route::get('{path}/clients/show/{id}', [ClientsController::class, 'show'])->middleware(['admin','subdomain']);
+    Route::post('{path}/client/user', [ClientsController::class, 'clientuser'])->middleware(['admin','subdomain']);
+    Route::post('{path}/client/application', [ClientsController::class, 'application'])->middleware(['admin','subdomain']);
 
-    Route::post('{path}/client/operator', [ClientsController::class, 'clientuserOperator'])->middleware('admin');
-    Route::post('{path}/client/userApp/delete', [ClientsController::class, 'clientUserAppDelete'])->middleware('admin');
+    Route::post('{path}/client/operator', [ClientsController::class, 'clientuserOperator'])->middleware(['admin','subdomain']);
+    Route::post('{path}/client/userApp/delete', [ClientsController::class, 'clientUserAppDelete'])->middleware(['admin','subdomain']);
 });
