@@ -141,7 +141,7 @@
                                         {{ Session::get('message') }}
                                     </div>
                                 @endif
-                                <form class="user" method="post" action="{{ url('auth') }}">
+                                <form class="user" method="post" action="{{ url(Request::segment(1).'/auth') }}">
                                     @csrf
                                     <div class="form-group">
                                         <input type="email" class="form-control" id="email"
@@ -221,7 +221,7 @@
                                             {{ Session::get('message') }}
                                         </div>
                                     @endif
-                                    <form class="user" method="post" action="{{ url('auth') }}">
+                                    <form class="user" method="post" action="{{ url(Request::segment(1).'/auth') }}">
                                         @csrf
                                         <div class="form-group">
                                             <input type="email" class="form-control" id="email"

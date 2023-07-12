@@ -7,7 +7,7 @@ active
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-clients"></i> Clients</h1>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{ url(Request::segment(1).'//') }}">Dashboard</a></li>
             <li class="breadcrumb-item">Clients</li>
         </ol>
     </div>
@@ -19,7 +19,7 @@ active
             <div class="card mb-4">
                 <div class="row mt-3 mr-2">
                     <div class="col-md-12 text-right">
-                        <a class="btn btn-primary" href="{{ url('clients/create') }}"><i class="fas fa-plus"></i> Add
+                        <a class="btn btn-primary" href="{{ url(Request::segment(1).'/clients/create') }}"><i class="fas fa-plus"></i> Add
                             Clients</a>
                     </div>
                 </div>
@@ -65,8 +65,8 @@ active
                                             <i class="fas fa-cogs"></i>
                                         </button>
                                         <div class="dropdown-menu " x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 31px, 0px);">
-                                            <a class="dropdown-item" href="{{ url('clients/show/' . $client->id) }}"><i data-feather="eye" width="20"></i> View</a>
-                                            <a class="dropdown-item" href="{{ url('clients/edit/' . $client->id) }}"><i data-feather="edit" width="20"></i> Edit</a>
+                                            <a class="dropdown-item" href="{{ url(Request::segment(1).'/clients/show/' . $client->id) }}"><i data-feather="eye" width="20"></i> View</a>
+                                            <a class="dropdown-item" href="{{ url(Request::segment(1).'/clients/edit/' . $client->id) }}"><i data-feather="edit" width="20"></i> Edit</a>
                                             <button class="dropdown-item" onclick="delete_client('{{ $client->id }}')"><i data-feather="trash" width="20"></i> Delete</button>
                                         </div>
                                     </div>
@@ -102,7 +102,7 @@ active
         if (confirm('Are you sure ?')) {
             $.ajax({
                 type: 'POST',
-                url: "{{ url('clients/delete') }}",
+                url: "{{ url(Request::segment(1).'/clients/delete') }}",
                 data: {
                     _token: _token,
                     id: id,

@@ -7,8 +7,8 @@
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Users</h1>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{{ url('users') }}">Users</a></li>
+                <li class="breadcrumb-item"><a href="{{ url(Request::segment(1).'//') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ url(Request::segment(1).'/users') }}">Users</a></li>
                 <li class="breadcrumb-item">Update User</li>
             </ol>
         </div>
@@ -31,7 +31,7 @@
                                 @endforeach
                             </div>
                         @endif
-                        <form id="updateuser" action="{{ url('users/update/' . $user->id) }}" method="POST"
+                        <form id="updateuser" action="{{ url(Request::segment(1).'/users/update/' . $user->id) }}" method="POST"
                             enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="row" style="margin-top: 20px">

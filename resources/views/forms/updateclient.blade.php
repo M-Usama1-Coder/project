@@ -7,8 +7,8 @@
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Clients</h1>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{{ url('clients') }}">Clients</a></li>
+                <li class="breadcrumb-item"><a href="{{ url(Request::segment(1).'//') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ url(Request::segment(1).'/clients') }}">Clients</a></li>
                 <li class="breadcrumb-item">Update Client</li>
             </ol>
         </div>
@@ -31,7 +31,7 @@
                                 @endforeach
                             </div>
                         @endif
-                        <form id="updateclient" action="{{ url('clients/update/' . $client->id) }}" method="POST"
+                        <form id="updateclient" action="{{ url(Request::segment(1).'/clients/update/' . $client->id) }}" method="POST"
                             enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="row" style="margin-top: 20px">
@@ -49,13 +49,13 @@
                                         <div class="form-group col-md-6">
                                             <input name="subscription" id="subscription" type="checkbox" {{$client->subscription?'checked':''}}/>
                                             <label for="subscription">Subscription</label>
-                                            
+
                                             {{-- <select name="subscription" id="subscription" class="form-control" required>
                                                         <option value="">{{ $client->subscription }}</option>
                                                         <option value="False">0</option>
                                             </select> --}}
                                         </div>
-    
+
                                     </div>
                                     {{-- <div class="row" style="margin-top:10px">
                                         <div class="form-group col-md-6">
@@ -77,7 +77,7 @@
                                     </div> --}}
                                 </div>
                             </div>
-                            
+
                             <br>
                             <div class="row">
                                 <div class="col">

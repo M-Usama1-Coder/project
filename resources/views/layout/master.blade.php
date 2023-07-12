@@ -372,7 +372,7 @@
                         </a>
                         <ul class="dropdown-menu animation-dock">
                             <li>
-                                <a href="{{ url('signout') }}">
+                                <a href="{{ url(Request::segment(1).'/signout') }}">
                                     Logout
                                 </a>
                             </li>
@@ -410,7 +410,7 @@
                 <ul id="main-menu" class="gui-controls">
 
                     <li class="menu ">
-                        <a href="{{ url('users') }}">
+                        <a href="{{ url(Request::segment(1).'/users') }}">
                             <div class="gui-icon">
                                 <i class="fa fa-users" style="font-size: 20px;"></i>
                             </div>
@@ -418,7 +418,7 @@
                         </a>
                     </li>
                     <li class="menu ">
-                        <a href="{{ url('applications') }}">
+                        <a href="{{ url(Request::segment(1).'/applications') }}">
                             <div class="gui-icon p-2">
                                 <i class="fa-solid fa-file-invoice" style="font-size: 20px;"></i>
                             </div>
@@ -427,7 +427,7 @@
                     </li>
                     @if ($currentGroup == 'Administrator')
                         <li class="menu ">
-                            <a href="{{ url('clients') }}">
+                            <a href="{{ url(Request::segment(1).'/clients') }}">
                                 <div class="gui-icon p-2">
                                     <i class="fa-sharp  fa-solid fa-sitemap" style="font-size: 20px;"></i>
                                 </div>
@@ -493,7 +493,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
-                    <a href="{{ url('signout') }}" class="btn btn-primary">Logout</a>
+                    <a href="{{ url(Request::segment(1).'/signout') }}" class="btn btn-primary">Logout</a>
                 </div>
             </div>
         </div>

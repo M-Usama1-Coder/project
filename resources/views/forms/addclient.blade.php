@@ -7,8 +7,8 @@
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Clients</h1>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{{ url('applications') }}">Clients</a></li>
+                <li class="breadcrumb-item"><a href="{{ url(Request::segment(1).'//') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ url(Request::segment(1).'/applications') }}">Clients</a></li>
                 <li class="breadcrumb-item">Add Client</li>
             </ol>
         </div>
@@ -31,10 +31,10 @@
                                 @endforeach
                             </div>
                         @endif
-                        <form id="addclient" action="{{ url('clients/store') }}" method="POST" enctype="multipart/form-data">
+                        <form id="addclient" action="{{ url(Request::segment(1).'/clients/store') }}" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="row" style="margin-top: 20px">
-                                
+
                                 <div class="col-md-9" style="padding-top: 30px">
                                     <div class="row">
                                         <div class="form-group col-md-6">
@@ -45,14 +45,14 @@
                                             <input type="text" name="domain" id="domain" class="form-control"
                                                 placeholder="domain" required />
                                         </div>
-                                         
-                                           
-                                     
+
+
+
                                     </div>
-                                  
+
                                 </div>
                             </div>
-                            
+
                             <br>
                             <div class="row">
                                 <div class="col">

@@ -21,7 +21,7 @@ class ApplicationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($path)
     {
         $user = Auth::user();
         $currentGroup = !empty($user->group) ? $user->group->group->name : null;
@@ -40,7 +40,7 @@ class ApplicationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($path)
     {
         return view('forms.addapplication');
     }
@@ -51,7 +51,7 @@ class ApplicationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$path)
     {
         //
         if ($request->method() == 'POST') {
@@ -72,7 +72,7 @@ class ApplicationController extends Controller
                     $icon = $request->file('icon');
                     $filename = time() . '.' . $icon->getClientOriginalExtension();
                     $path = $request->icon->storeAs('icons', $filename);
-                    $application['icon'] =   url('storage/' . $path);
+                    $application['icon'] =   url(Request::segment(1).'/storage/' . $path);
                 } catch (\Throwable $th) {
                     return response()->json([
                         'status' => false,
@@ -96,7 +96,7 @@ class ApplicationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($path,$id)
     {
         $application = Application::where('id', $id)->first();
         $userApps = ApplicationUser::where('application_id', $application->id)->get();
@@ -109,7 +109,7 @@ class ApplicationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($path,$id)
     {
         //
         $application = DB::table('applications')
@@ -118,7 +118,7 @@ class ApplicationController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function update(Request $request,$path, $id)
     {
         //
         $reqApplication = Application::where('id', $id)->first();
@@ -138,7 +138,7 @@ class ApplicationController extends Controller
                     $icon = $request->file('icon');
                     $filename = time() . '.' . $icon->getClientOriginalExtension();
                     $path = $request->icon->storeAs('icons', $filename);
-                    $application['icon'] =   url('storage/' . $path);
+                    $application['icon'] =   url(Request::segment(1).'/storage/' . $path);
                 } catch (\Throwable $th) {
                     return response()->json([
                         'status' => false,
@@ -164,7 +164,7 @@ class ApplicationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete(Request $request)
+    public function delete(Request $request,$path)
     {
         if ($request->method() == 'POST') {
             $res = DB::table('applications')

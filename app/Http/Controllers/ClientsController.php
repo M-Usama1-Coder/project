@@ -22,7 +22,7 @@ class ClientsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($path)
     {
         $clients = DB::table('clients')->get();
         return view('clients', ['clients' => $clients]);
@@ -33,7 +33,7 @@ class ClientsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($path)
     {
         return view('forms.addclient');
     }
@@ -44,7 +44,7 @@ class ClientsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $path)
     {
         //
         if ($request->method() == 'POST') {
@@ -74,7 +74,7 @@ class ClientsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function clientuser(Request $request)
+    public function clientuser(Request $request, $path)
     {
         $client_id = $request->client_id;
         $user_id = $request->user_id;
@@ -89,7 +89,7 @@ class ClientsController extends Controller
         return redirect()->back();
     }
 
-    public function application(Request $request)
+    public function application(Request $request, $path)
     {
         $application_id = $request->application_id;
         $client_id = $request->client_id;
@@ -101,7 +101,7 @@ class ClientsController extends Controller
         return redirect()->back();
     }
 
-    public function clientuserOperator(Request $request)
+    public function clientuserOperator(Request $request, $path)
     {
         $client_id = $request->client_id;
         $user_id = $request->user_id;
@@ -112,7 +112,7 @@ class ClientsController extends Controller
         return redirect()->back();
     }
 
-    public function clientUserAppDelete(Request $request)
+    public function clientUserAppDelete(Request $request, $path)
     {
         $client_id = $request->client_id;
         if (!empty($request->user_id)) {
@@ -126,7 +126,7 @@ class ClientsController extends Controller
         return redirect()->back();
     }
 
-    public function show($id)
+    public function show($path, $id)
     {
         $client = DB::table('clients')
             ->where('id', '=', $id)
@@ -146,7 +146,7 @@ class ClientsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($path, $id)
     {
         //
         $client = DB::table('clients')
@@ -155,7 +155,7 @@ class ClientsController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $path, $id)
     {
         //
         $reqClient = Client::where('id', $id)->first();
@@ -193,7 +193,7 @@ class ClientsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete(Request $request)
+    public function delete(Request $request, $path)
     {
         if ($request->method() == 'POST') {
             $res = DB::table('clients')

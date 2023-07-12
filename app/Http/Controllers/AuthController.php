@@ -13,7 +13,19 @@ use Illuminate\Support\Facades\Session;
 class AuthController extends Controller
 {
     //
-    public function login()
+    public function redirection($path = null)
+    {
+        $user = auth()->user();
+        $currentGroup = !empty($user->group) ? $user->group->group->name : null;
+        if ($currentGroup == 'Administrator') {
+            return redirect('admin/users');
+        } else {
+            $client = Client::where('id', $user->client_id)->first();
+            return redirect($client->domain . '/users');
+        }
+    }
+
+    public function login($path = null)
     {
         if (Auth::check()) {
             return redirect('/');
@@ -21,10 +33,10 @@ class AuthController extends Controller
         return view('login');
     }
 
-    public function authenticate(Request $request)
+    public function authenticate(Request $request, $path = null)
     {
         if (Auth::check()) {
-            return redirect('/');
+            return redirect($path . '/');
         }
         if ($request->method() == 'POST') {
             $credentials = $request->only('email', 'password');
@@ -35,16 +47,22 @@ class AuthController extends Controller
                     Session::flash('message', 'You are not Authorized!');
                     Session::flash('alert-class', 'alert-danger');
                     return redirect('login');
+                } else {
+                    $preURL = 'admin';
                 }
             }
             $client = Client::where('id', $user->client_id)->first();
-            if (!$client->subscription) {
-                Session::flash('message', 'You are not subscribe!');
-                Session::flash('alert-class', 'alert-danger');
-                return redirect('login');
+            if ($client) {
+                $preURL = $client->domain;
+                if (!$client->subscription) {
+                    Session::flash('message', 'You are not subscribe!');
+                    Session::flash('alert-class', 'alert-danger');
+                    return redirect('login');
+                }
             }
+
             if (Auth::attempt($credentials)) {
-                return redirect()->intended('/');
+                return redirect()->intended($preURL . '/');
             } else {
                 Session::flash('message', 'Invalid Email or Password!');
                 Session::flash('alert-class', 'alert-danger');
@@ -53,10 +71,10 @@ class AuthController extends Controller
         }
     }
 
-    public function signout()
+    public function signout($path)
     {
         Auth::logout();
-        return redirect('login');
+        return redirect($path . '/login');
     }
 
     public function signup()

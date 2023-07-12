@@ -25,7 +25,7 @@ class Users extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($path = null)
     {
         $user = Auth::user();
         $currentGroup = !empty($user->group) ? $user->group->group->name : null;
@@ -44,7 +44,7 @@ class Users extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($path = null)
     {
         $user = Auth::user();
         $currentGroup = !empty($user->group) ? $user->group->group->name : null;
@@ -63,7 +63,7 @@ class Users extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $path = null)
     {
         //
         $authUser = Auth::user();
@@ -103,7 +103,7 @@ class Users extends Controller
         }
     }
 
-    public function application(Request $request)
+    public function application(Request $request, $path = null)
     {
         $application_id = $request->application_id;
         $user_id = $request->user_id;
@@ -115,7 +115,7 @@ class Users extends Controller
         return redirect('users/show/' . $user_id);
     }
 
-    public function applicationDelete(Request $request)
+    public function applicationDelete(Request $request, $path = null)
     {
         $application_id = $request->application_id;
         $user_id = $request->user_id;
@@ -129,7 +129,7 @@ class Users extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($path, $id)
     {
         $authUser = Auth::user();
         $currentGroup = !empty($authUser->group) ? $authUser->group->group->name : null;
@@ -154,7 +154,7 @@ class Users extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($path, $id)
     {
         //
         $user = DB::table('users')
@@ -165,7 +165,7 @@ class Users extends Controller
         return view('forms.updateuser', ['user' => $user, 'groups' => $groups]);
     }
 
-    public function change_password(Request $request, $id)
+    public function change_password(Request $request, $path, $id)
     {
         $reqUser = User::where('id', $id)->first();
         $user = $request->validate([
@@ -184,7 +184,7 @@ class Users extends Controller
         }
         return redirect()->back();
     }
-    public function update(Request $request, $id)
+    public function update(Request $request, $path , $id)
     {
         //
         $reqUser = User::where('id', $id)->first();
@@ -240,7 +240,7 @@ class Users extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete(Request $request)
+    public function delete(Request $request, $path)
     {
         $authUser = Auth::user();
         $currentGroup = !empty($authUser->group) ? $authUser->group->group->name : null;

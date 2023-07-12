@@ -132,7 +132,7 @@
                         <div class="content" id="loginCard">
 
                             <div class="title">
-                                <img style="max-height:100px" src="{{asset('assets/logo.webp')}}">
+                                <img style="max-height:100px" src="{{ asset('assets/logo.webp') }}">
                                 <h1 class="titlepageheading">REGISTER</h1>
                             </div>
                             <div class="login-form">
@@ -141,36 +141,36 @@
                                         {{ Session::get('message') }}
                                     </div>
                                 @endif
-                                <form class="user"  method="post" action="{{ url('register') }}">
+                                <form class="user" method="post" action="{{ url('register') }}">
                                     @csrf
                                     <div style="">
 
                                         <div class="form-group" style="margin: 5px">
                                             <input type="text" class="form-control" id="first_name" name="first_name"
-                                            placeholder="first_name" required>
+                                                placeholder="first_name" required>
                                         </div>
                                         <div class="form-group" style="margin: 5px">
                                             <input type="text" class="form-control" id="last_name" name="last_name"
-                                            placeholder="last_name" required>
+                                                placeholder="last_name" required>
                                         </div>
                                         <div class="form-group" style="margin: 5px">
                                             <input type="email" class="form-control" id="email"
-                                            aria-describedby="emailHelp" placeholder="Enter Email Address"
-                                            name="email" required autofocus>
+                                                aria-describedby="emailHelp" placeholder="Enter Email Address"
+                                                name="email" required autofocus>
                                         </div>
                                         <div class="form-group" style="margin: 5px">
                                             <input type="password" class="form-control" id="password" name="password"
-                                            placeholder="Password" required>
+                                                placeholder="Password" required>
                                         </div>
                                         <div class="form-group" style="margin: 5px">
                                             <input type="text" class="form-control" id="name" name="name"
-                                            placeholder="Organization_name" required>
+                                                placeholder="Organization_name" required>
                                         </div>
                                         <div class="form-group" style="margin: 5px">
                                             <input type="text" class="form-control" id="domain" name="domain"
-                                            placeholder="Sub_domain" required>
+                                                placeholder="Sub_domain" required>
                                         </div>
-                                        
+
                                     </div>
                                     {{-- <div class="form-group">
                                             <div class="custom-control custom-checkbox small"

@@ -7,8 +7,8 @@
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Users</h1>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{{ url('users') }}">Users</a></li>
+                <li class="breadcrumb-item"><a href="{{ url(Request::segment(1).'//') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ url(Request::segment(1).'/users') }}">Users</a></li>
                 <li class="breadcrumb-item">{{ $user->first_name }}</li>
             </ol>
         </div>
@@ -45,7 +45,7 @@
                                 <div class="form-group col-md-8 text-start">
                                     <label for="application_id">Applications</label>
                                     @if (!empty($clientApps))
-                                        <form action="{{ url('users/application') }}" method="POST" class="d-flex">
+                                        <form action="{{ url(Request::segment(1).'/users/application') }}" method="POST" class="d-flex">
                                             <div>
 
                                                 @csrf
@@ -79,7 +79,7 @@
                                         <tr>
                                             <td>{{ $app->application->name }}</td>
                                             <td>
-                                                <form action="{{ url('users/application/delete') }}" method="POST">
+                                                <form action="{{ url(Request::segment(1).'/users/application/delete') }}" method="POST">
                                                     @csrf
                                                     <input type="hidden" name='user_id' value="{{ $user->id }}">
 

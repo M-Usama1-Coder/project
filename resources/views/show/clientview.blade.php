@@ -7,8 +7,8 @@
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Clients</h1>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{{ url('clients') }}">Clients</a></li>
+                <li class="breadcrumb-item"><a href="{{ url(Request::segment(1).'//') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ url(Request::segment(1).'/clients') }}">Clients</a></li>
                 <li class="breadcrumb-item">{{ $client->name }}</li>
             </ol>
         </div>
@@ -41,7 +41,7 @@
                                 <Hr>
                                 <h4>Users</h4>
                                 <div class="form-group col-md-8 d-flex">
-                                    <form action="{{ url('client/user') }}" class="d-flex" method="POST">
+                                    <form action="{{ url(Request::segment(1).'/client/user') }}" class="d-flex" method="POST">
                                         @csrf
                                         <input type="hidden" name='client_id' value="{{ $client->id }}">
                                         <select name="user_id" id="user_id" class="form-control" required>
@@ -78,7 +78,7 @@
                                                         </button>
                                                         <div class="dropdown-menu" x-placement="bottom-start"
                                                             style="padding: 10px;position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 31px, 0px);">
-                                                            <form action="{{ url('client/operator') }}" method="POST">
+                                                            <form action="{{ url(Request::segment(1).'/client/operator') }}" method="POST">
                                                                 @csrf
                                                                 <input type="hidden" name='client_id'
                                                                     value="{{ $client->id }}">
@@ -89,7 +89,7 @@
                                                                     class="btn btn-danger btn-sm">Make Operator</button>
                                                             </form>
 
-                                                            <form action="{{ url('client/userApp/delete') }}" method="POST">
+                                                            <form action="{{ url(Request::segment(1).'/client/userApp/delete') }}" method="POST">
                                                                 @csrf
                                                                 <input type="hidden" name='client_id'
                                                                     value="{{ $client->id }}">
@@ -114,7 +114,7 @@
                                 <Hr />
                                 <h4>Applications</h4>
                                 <div class="form-group col-md-8 d-flex">
-                                    <form action="{{ url('client/application') }}" class="d-flex" method="POST">
+                                    <form action="{{ url(Request::segment(1).'/client/application') }}" class="d-flex" method="POST">
                                         @csrf
                                         <input type="hidden" name='client_id' value="{{ $client->id }}">
                                         <select name="application_id" id="application_id" class="form-control p-2 "
@@ -151,7 +151,7 @@
                                                         <div class="dropdown-menu" x-placement="bottom-start"
                                                             style="padding: 10px;position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 31px, 0px);">
 
-                                                            <form action="{{ url('client/userApp/delete') }}" method="POST">
+                                                            <form action="{{ url(Request::segment(1).'/client/userApp/delete') }}" method="POST">
                                                                 @csrf
                                                                 <input type="hidden" name='client_id'
                                                                     value="{{ $client->id }}">

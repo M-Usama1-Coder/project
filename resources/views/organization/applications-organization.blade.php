@@ -7,7 +7,7 @@
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-applications"></i> Applications</h1>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ url(Request::segment(1).'//') }}">Dashboard</a></li>
                 <li class="breadcrumb-item">Applications</li>
             </ol>
         </div>
@@ -56,7 +56,7 @@
                                                     <div class="dropdown-menu" x-placement="bottom-start"
                                                         style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 31px, 0px);">
                                                         <a class="dropdown-item"
-                                                            href="{{ url('applications/show/' . $application->application->id) }}"><i
+                                                            href="{{ url(Request::segment(1).'/applications/show/' . $application->application->id) }}"><i
                                                                 data-feather="eye" width="20"></i> View</a>
                                                     </div>
                                                 </div>
@@ -93,7 +93,7 @@
             if (confirm('Are you sure ?')) {
                 $.ajax({
                     type: 'POST',
-                    url: "{{ url('applications/delete') }}",
+                    url: "{{ url(Request::segment(1).'/applications/delete') }}",
                     data: {
                         _token: _token,
                         id: id,

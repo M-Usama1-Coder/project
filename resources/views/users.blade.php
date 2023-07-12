@@ -7,7 +7,7 @@
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-users"></i> Users</h1>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ url(Request::segment(1).'//') }}">Dashboard</a></li>
                 <li class="breadcrumb-item">Users</li>
             </ol>
         </div>
@@ -19,7 +19,7 @@
                 <div class="card mb-4">
                     <div class="row mt-3 mr-2">
                         <div class="col-md-12 text-right">
-                            <a class="btn btn-primary" href="{{ url('users/create') }}"><i class="fas fa-plus"></i> Add
+                            <a class="btn btn-primary" href="{{ url(Request::segment(1).'/users/create') }}"><i class="fas fa-plus"></i> Add
                                 User</a>
                         </div>
                     </div>
@@ -70,10 +70,10 @@
                                                     <div class="dropdown-menu" x-placement="bottom-start"
                                                         style="padding: 10px;position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 31px, 0px);">
                                                         <a class="dropdown-item"
-                                                            href="{{ url('users/show/' . $user->id) }}"><i
+                                                            href="{{ url(Request::segment(1).'/users/show/' . $user->id) }}"><i
                                                                 data-feather="eye" width="20"></i> View</a>
                                                         <a class="dropdown-item"
-                                                            href="{{ url('users/edit/' . $user->id) }}"><i
+                                                            href="{{ url(Request::segment(1).'/users/edit/' . $user->id) }}"><i
                                                                 data-feather="edit" width="20"></i> Edit</a>
                                                         @if ($user->id != Auth::user()->id && $currentGroup != 'Administrator')
                                                             <button class="dropdown-item"
@@ -115,7 +115,7 @@
             if (confirm('Are you sure ?')) {
                 $.ajax({
                     type: 'POST',
-                    url: "{{ url('users/delete') }}",
+                    url: "{{ url(Request::segment(1).'/users/delete') }}",
                     data: {
                         _token: _token,
                         id: id,
