@@ -64,10 +64,10 @@
                                 @if ($currentGroup == 'Administrator')
                                     <div class="form-group col-md-6">
                                         <select name="group" id="group" class="form-control" required>
-                                            <option value="">Select</option>
                                             @if (!empty($groups))
-                                                @foreach ($groups as $group)
-                                                    <option value="{{ $group->id }}">{{ $group->name }}</option>
+                                                @foreach ($groups as $index => $group)
+                                                    <option {{ !$index ? 'selected' : null }} value="{{ $group->id }}">
+                                                        {{ $group->name }}</option>
                                                 @endforeach
                                             @endif
                                         </select>
